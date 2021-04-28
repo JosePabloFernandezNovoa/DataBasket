@@ -1,7 +1,13 @@
-$(function () {
+/* global Swal */
 
-    $('button').on('click', '.btn-info', function() {
-        $(".modal").modal("show");
+$(function () {
+    
+    $('.info').on('click', function() {
+        $(".informacionEquipo").modal("show");
     });
+    /*$('.btn-warning').on('click', function() {
+         $('.tablaJugadores').css('visibility', 'visible');
+         $('#datosEquipo').css('visibility', 'visible');
+    });*/
     
 } );

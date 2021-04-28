@@ -15,6 +15,7 @@ import es.albarregas.dao.IGenericoDAO;
 import es.albarregas.dao.IJugadorDAO;
 import java.util.List;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -35,12 +36,15 @@ public class ListadoAjax extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         JSONArray arrayJSON =null;
+        JSONObject objeto = new JSONObject();
         DAOFactory daof = DAOFactory.getDAOFactory();
         
+        IGenericoDAO<Jugador> Jdao = daof.getGenericoDAO();
         IJugadorDAO adaoJ = daof.getJugadorDAO();
         IEquipoDAO adaoE = daof.getEquipoDAO();
         
-        List<Jugador> listadoJugadores = null;
+        Jugador jugador= null;
+        List<Jugador> listadoJugador = null;
         List<Equipo> listadoEquipo = null;
         
         if (request.getParameter("equipo") != null) {
@@ -54,13 +58,13 @@ public class ListadoAjax extends HttpServlet {
 
         }
         
-        if (request.getParameter("idEquipo") != null) {
-            String idEquipo = request.getParameter("idEquipo");
+        if (request.getParameter("idJugador") != null) {
+            String idJugador = request.getParameter("idJugador");
 
             //recogemos todos los jugadores de eses equipo
-            listadoJugadores = adaoJ.getJugadoresEquipo(Short.valueOf(idEquipo));
+            listadoJugador = adaoJ.getInfoJugador(Short.valueOf(idJugador));
             
-            arrayJSON = new JSONArray(listadoJugadores);
+            arrayJSON = new JSONArray(listadoJugador);
             
         }
         

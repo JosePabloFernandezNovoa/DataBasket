@@ -10510,3 +10510,34 @@ div#contact .section-heading {
 .form-group{
   margin: 50px;
 }
+
+.btn-warning{
+    margin: 20px;
+}
+
+/*.tablaJugadores {
+  visibility: hidden;
+}
+
+#datosEquipo{
+  visibility: hidden;
+}*/
+
+#infoEquipo{
+    color: white;
+    margin-left: 220px;
+    text-align: center;
+}
+
+.modal-body{
+    color: black;
+    width: 300px;
+    height: 600px;
+}
+
+#listaEquipo{
+    align-content: center;
+    margin-left: 150px;
+}
+
+

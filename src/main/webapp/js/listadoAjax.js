@@ -133,9 +133,10 @@ function comprobarListaJugadores(data) {
 function tablaJugadores(data) {
     let filas;
     
+    let boton='<button type="button" class="btn btn-info"><i class="fas fa-info"></i></button>';
     //creamos las filas y columnas cn los valores recibidos
     for (let i = 0; i < data.length; i++) {
-        filas += `<tr><td><button type="button" class="btn btn-info"><i class="fas fa-info"></i></button>
+        filas += `<tr><td>${boton}
                     </td><td>${data[i].nombre}</td></tr>`;
     }
     

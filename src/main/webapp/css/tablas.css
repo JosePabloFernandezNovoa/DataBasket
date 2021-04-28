@@ -3,3 +3,15 @@
     margin-left: 150px;
     margin-right: 230px;
 }
+
+#datosEquipo{
+    text-align: center;
+    margin-left: 100px;
+    margin-right: 230px;
+}
+
+.datosJugadores{
+    text-align: center;
+    margin-left: 420px;
+    margin-right: 230px;
+}
