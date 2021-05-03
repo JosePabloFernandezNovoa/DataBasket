@@ -6,6 +6,7 @@
 package es.albarregas.controllers;
 
 import es.albarregas.beans.Equipo;
+import es.albarregas.beans.Estadisticas;
 import es.albarregas.beans.Partido;
 import es.albarregas.daofactory.DAOFactory;
 import java.io.IOException;
@@ -44,6 +45,7 @@ public class Front extends HttpServlet {
         DAOFactory daof = DAOFactory.getDAOFactory();
         IGenericoDAO<Partido> Pdao = daof.getGenericoDAO();
         IGenericoDAO<Equipo> Edao = daof.getGenericoDAO();
+        IGenericoDAO<Estadisticas> Esdao = daof.getGenericoDAO();
 
         IJugadorDAO adaoJ = daof.getJugadorDAO();
         IEstadisticaDAO adaoE = daof.getEstadisticaDAO();
@@ -51,10 +53,11 @@ public class Front extends HttpServlet {
 
         List<Partido> listaPartidos = null;
         List<Equipo> listaEquipos = null;
+        List<Estadisticas> listaEstadisticas = null;
         List<Object[]> listaProfesoresAlumnos = null;
         List<Object[]> listaA = null;
-        
-        Boolean vacio=false;
+
+        Boolean vacio = false;
 
         switch (request.getParameter("id")) {
 
@@ -64,39 +67,42 @@ public class Front extends HttpServlet {
                 request.setAttribute("listado", listaPartidos);
 
                 break;
-                
+
             case "equipos":
 
                 listaEquipos = Edao.selectAll(Equipo.class);
                 request.setAttribute("listado", listaEquipos);
 
-                break;    
+                break;
+
+            case "anotadores":
+
+                listaEstadisticas = adaoE.getAnotadores();
+                request.setAttribute("listado", listaEstadisticas);
+                break;
 
             case "nuevoAlumno":
                 url = "JSP/nuevo/Nuevo_Alumno.jsp";
                 break;
 
             case "nuevoNota":
-                
+
                 String codigoCiclo = (String) request.getSession().getAttribute("idCiclo");
-               // listaAlumnos = adaoA.getAlumnosDeunCiclo(codigoCiclo);
+                // listaAlumnos = adaoA.getAlumnosDeunCiclo(codigoCiclo);
                 //request.setAttribute("listadoAlumnos", listaAlumnos);
-                
+
                 //listaModulos = adaoC.getModulosCiclo(codigoCiclo);
                 //request.setAttribute("listadoModulos", listaModulos);
-                
                 //listaNotas = adaoC.getNotasCiclo(codigoCiclo);
-               // request.setAttribute("listadoNotas", listaNotas);
-                
+                // request.setAttribute("listadoNotas", listaNotas);
                 /*if(listaAlumnos.isEmpty() || listaNotas.isEmpty()){
                     vacio=true;
                 }*/
-                
                 break;
             case "eliminarAlumnos":
                 String idCiclo = (String) request.getSession().getAttribute("idCiclo");
-               // listaAlumnos = adaoA.getAlumnosDeunCiclo(idCiclo);
-               // request.setAttribute("listado", listaAlumnos);
+                // listaAlumnos = adaoA.getAlumnosDeunCiclo(idCiclo);
+                // request.setAttribute("listado", listaAlumnos);
 
                 break;
 
@@ -105,8 +111,7 @@ public class Front extends HttpServlet {
                 || request.getParameter("id").equals("nuevoNota") || request.getParameter("id").equals("modificarDatosProfesor")
                 || request.getParameter("id").equals("modificarDatosAlumno")
                 || (listaPartidos != null && !listaPartidos.isEmpty()) || (listaEquipos != null && !listaEquipos.isEmpty())
-
-                || (listaA != null && !listaA.isEmpty())) {
+                || (listaEstadisticas != null && !listaEstadisticas.isEmpty())) {
             switch (request.getParameter("id")) {
                 case "partidos":
                     url = "JSP/partidos.jsp";
@@ -116,8 +121,8 @@ public class Front extends HttpServlet {
                     url = "JSP/equipos.jsp";
                     break;
 
-                case "modulos":
-                    url = "JSP/listado/Modulos_Alumno.jsp";
+                case "anotadores":
+                    url = "JSP/estadisticas/anotadores.jsp";
                     break;
 
                 case "alumnos":
@@ -125,9 +130,9 @@ public class Front extends HttpServlet {
                     break;
 
                 case "nuevoNota":
-                    if(vacio==false){
+                    if (vacio == false) {
                         url = "JSP/nuevo/Nuevo_Notas.jsp";
-                    }else{
+                    } else {
                         url = "JSP/errores/error.jsp";
                     }
                     break;
@@ -143,11 +148,11 @@ public class Front extends HttpServlet {
                 case "modificarDatosProfesor":
                     url = "JSP/update/Actualizar_Datos_Tutor.jsp";
                     break;
-                    
+
                 case "modificarDatosAlumno":
                     url = "JSP/update/Actualizar_Datos_Alumno.jsp";
-                    break;    
-                    
+                    break;
+
             }
         } else {
             url = "JSP/errores/error.jsp";

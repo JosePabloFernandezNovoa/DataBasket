@@ -5,6 +5,7 @@
  */
 package es.albarregas.dao;
 
+import es.albarregas.beans.Estadisticas;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.query.Query;
@@ -14,6 +15,27 @@ import org.hibernate.query.Query;
  * @author jp-9
  */
 public class EstadisticaDAO extends GenericoDAO implements IEstadisticaDAO {
+
+    @Override
+    public List<Estadisticas> getAnotadores() {
+        /*String hql = "SELECT e.jugador.nombre,e.jugador.equipo.nombre,e.jugador.equipo.logotipo,sum(e.puntosPartido) AS mediaPuntosPartido FROM Estadisticas AS e "
+                + "GROUP BY e.jugador.idJugador ORDER BY mediaPuntosPartido desc";*/
+        String hql = "SELECT e FROM Estadisticas AS e "
+                + "GROUP BY e.jugador.idJugador";
+        Query consulta = null;
+        List<Estadisticas> anotadores = null;
+        try {
+            startTransaction();
+            consulta = sesion.createQuery(hql);
+
+            anotadores = (List<Estadisticas>) consulta.list();
+        } catch (HibernateException he) {
+            handleException(he);
+        } finally {
+            endTransaction();
+        }
+        return anotadores;
+    }
 
     /*@Override
     public List<Alumno> getAlumnosDeunCiclo(String idciclo) {
