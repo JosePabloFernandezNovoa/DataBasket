@@ -10493,6 +10493,12 @@ section#contact form#contactForm :-ms-input-placeholder {
   text-align: center;
 }
 
+.tablaAnotadores{
+  background-color: white;
+  text-align: center;
+}
+
+
 .btn-info{
   border-radius: 50px;
 }

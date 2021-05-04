@@ -17,18 +17,16 @@ import org.hibernate.query.Query;
 public class EstadisticaDAO extends GenericoDAO implements IEstadisticaDAO {
 
     @Override
-    public List<Estadisticas> getAnotadores() {
-        /*String hql = "SELECT e.jugador.nombre,e.jugador.equipo.nombre,e.jugador.equipo.logotipo,sum(e.puntosPartido) AS mediaPuntosPartido FROM Estadisticas AS e "
-                + "GROUP BY e.jugador.idJugador ORDER BY mediaPuntosPartido desc";*/
-        String hql = "SELECT e FROM Estadisticas AS e "
-                + "GROUP BY e.jugador.idJugador";
+    public List<Object[]> getAnotadores() {
+        String hql = "SELECT e.jugador.nombre,e.jugador.equipo.nombre,e.jugador.equipo.logotipo,sum(e.puntosPartido) AS mediaPuntosPartido FROM Estadisticas AS e "
+                + "GROUP BY e.jugador.idJugador ORDER BY mediaPuntosPartido desc";
         Query consulta = null;
-        List<Estadisticas> anotadores = null;
+        List<Object[]> anotadores = null;
         try {
             startTransaction();
             consulta = sesion.createQuery(hql);
 
-            anotadores = (List<Estadisticas>) consulta.list();
+            anotadores = (List<Object[]>) consulta.list();
         } catch (HibernateException he) {
             handleException(he);
         } finally {
@@ -37,63 +35,57 @@ public class EstadisticaDAO extends GenericoDAO implements IEstadisticaDAO {
         return anotadores;
     }
 
-    /*@Override
-    public List<Alumno> getAlumnosDeunCiclo(String idciclo) {
-        String hql = "SELECT a FROM Alumno AS a WHERE a.ciclo.idCiclo = :ciclo and a.ultimoAcceso IS NOT NULL";
+    @Override
+    public List<Object[]> getAsistentes() {
+String hql = "SELECT e.jugador.nombre,e.jugador.equipo.nombre,e.jugador.equipo.logotipo,sum(e.asistenciasPartido) AS mediaAsistenciasPartido FROM Estadisticas AS e "
+                + "GROUP BY e.jugador.idJugador ORDER BY mediaAsistenciasPartido desc";
         Query consulta = null;
-        List<Alumno> alumnos = null;
+        List<Object[]> asistentes = null;
         try {
             startTransaction();
             consulta = sesion.createQuery(hql);
 
-            consulta.setParameter("ciclo", idciclo);
-
-            alumnos = (List<Alumno>) consulta.list();
+            asistentes = (List<Object[]>) consulta.list();
         } catch (HibernateException he) {
             handleException(he);
         } finally {
             endTransaction();
         }
-        return alumnos;
-    }
+        return asistentes;    }
 
     @Override
-    public List<Nota> getNotasAlumno(int idUsuario) {
-        String hql = "SELECT n FROM Nota AS n WHERE n.alumno.idUsuario = :id";
+    public List<Object[]> getReboteadores() {
+String hql = "SELECT e.jugador.nombre,e.jugador.equipo.nombre,e.jugador.equipo.logotipo,sum(e.rebotesPartido) AS mediaRebotesPartido FROM Estadisticas AS e "
+                + "GROUP BY e.jugador.idJugador ORDER BY mediaRebotesPartido desc";
         Query consulta = null;
-        List<Nota> notas = null;
+        List<Object[]> reboteadores = null;
         try {
             startTransaction();
             consulta = sesion.createQuery(hql);
 
-            consulta.setParameter("id", idUsuario);
-
-            notas = (List<Nota>) consulta.list();
+            reboteadores = (List<Object[]>) consulta.list();
         } catch (HibernateException he) {
             handleException(he);
         } finally {
             endTransaction();
         }
-        return notas;
-    }
+        return reboteadores;    }
 
     @Override
-    public List<Modulo> getModulosAlumnoCiclo(String idCiclo) {
-        String hql = "SELECT m FROM Ciclo AS c inner join c.modulos as m where c.idCiclo=:ciclo";
+    public List<Object[]> getTaponadores() {
+String hql = "SELECT e.jugador.nombre,e.jugador.equipo.nombre,e.jugador.equipo.logotipo,sum(e.taponesPartido) AS mediaTaponesPartido FROM Estadisticas AS e "
+                + "GROUP BY e.jugador.idJugador ORDER BY mediaTaponesPartido desc";
         Query consulta = null;
-        List<Modulo> modulos = null;
+        List<Object[]> taponadores = null;
         try {
             startTransaction();
             consulta = sesion.createQuery(hql);
 
-            consulta.setParameter("ciclo", idCiclo);
-
-            modulos = (List<Modulo>) consulta.list();
+            taponadores = (List<Object[]>) consulta.list();
         } catch (HibernateException he) {
             handleException(he);
         } finally {
             endTransaction();
         }
-        return modulos;
-    }*/
+        return taponadores;    }
 }

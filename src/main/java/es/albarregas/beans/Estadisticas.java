@@ -45,7 +45,7 @@ public class Estadisticas implements Serializable {
     private byte rebotesPartido;
     
     @Transient
-    private byte mediaPuntosPartido;  
+    private byte mediaEstadisticasPartido;  
 
     public Short getIdEstadistica() {
         return idEstadistica;
@@ -111,14 +111,13 @@ public class Estadisticas implements Serializable {
         this.rebotesPartido = rebotesPartido;
     }
 
-    public byte getMediaPuntosPartido() {
-        return mediaPuntosPartido;
+    public byte getMediaEstadisticasPartido() {
+        return mediaEstadisticasPartido;
     }
 
-    public void setMediaPuntosPartido(byte mediaPuntosPartido) {
-        this.mediaPuntosPartido = mediaPuntosPartido;
+    public void setMediaEstadisticasPartido(byte mediaEstadisticasPartido) {
+        this.mediaEstadisticasPartido = mediaEstadisticasPartido;
     }
-
     
    
 

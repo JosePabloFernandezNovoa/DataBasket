@@ -7,6 +7,7 @@ package es.albarregas.controllers;
 
 import es.albarregas.beans.Equipo;
 import es.albarregas.beans.Estadisticas;
+import es.albarregas.beans.Jugador;
 import es.albarregas.beans.Partido;
 import es.albarregas.daofactory.DAOFactory;
 import java.io.IOException;
@@ -51,13 +52,18 @@ public class Front extends HttpServlet {
         IEstadisticaDAO adaoE = daof.getEstadisticaDAO();
         IUsuarioDAO adaoU = daof.getUsuarioDAO();
 
+        List<Estadisticas> listaEstadisticas=null;
         List<Partido> listaPartidos = null;
         List<Equipo> listaEquipos = null;
-        List<Estadisticas> listaEstadisticas = null;
         List<Object[]> listaProfesoresAlumnos = null;
         List<Object[]> listaA = null;
+        List<Object[]> listEstadisticas = null;
 
         Boolean vacio = false;
+        
+        Estadisticas estadisticas = null;
+        Jugador jugador=null;
+        Equipo equipo=null;
 
         switch (request.getParameter("id")) {
 
@@ -77,9 +83,107 @@ public class Front extends HttpServlet {
 
             case "anotadores":
 
-                listaEstadisticas = adaoE.getAnotadores();
+                listEstadisticas = adaoE.getAnotadores();
+                
+                listaEstadisticas = new ArrayList<>();
+
+                for (int i = 0; i < listEstadisticas.size(); i++) {
+                    jugador =new Jugador();
+                    estadisticas = new Estadisticas();
+                    equipo =new Equipo();
+                    Object[] resultado = listEstadisticas.get(i);
+                    
+                    jugador.setNombre(resultado[0].toString());
+                    
+                    equipo.setNombre(resultado[1].toString());
+                    equipo.setLogotipo(resultado[2].toString());
+                    jugador.setEquipo(equipo);
+                    
+                    estadisticas.setJugador(jugador);
+                    estadisticas.setMediaEstadisticasPartido(Byte.valueOf(resultado[3].toString()));
+
+                    listaEstadisticas.add(estadisticas);
+                }
                 request.setAttribute("listado", listaEstadisticas);
                 break;
+            
+            case "asistentes":
+
+                listEstadisticas = adaoE.getAsistentes();
+                
+                listaEstadisticas = new ArrayList<>();
+
+                for (int i = 0; i < listEstadisticas.size(); i++) {
+                    jugador =new Jugador();
+                    estadisticas = new Estadisticas();
+                    equipo =new Equipo();
+                    Object[] resultado = listEstadisticas.get(i);
+                    
+                    jugador.setNombre(resultado[0].toString());
+                    
+                    equipo.setNombre(resultado[1].toString());
+                    equipo.setLogotipo(resultado[2].toString());
+                    jugador.setEquipo(equipo);
+                    
+                    estadisticas.setJugador(jugador);
+                    estadisticas.setMediaEstadisticasPartido(Byte.valueOf(resultado[3].toString()));
+
+                    listaEstadisticas.add(estadisticas);
+                }
+                request.setAttribute("listado", listaEstadisticas);
+                break; 
+                
+            case "reboteadores":
+
+                listEstadisticas = adaoE.getReboteadores();
+                
+                listaEstadisticas = new ArrayList<>();
+
+                for (int i = 0; i < listEstadisticas.size(); i++) {
+                    jugador =new Jugador();
+                    estadisticas = new Estadisticas();
+                    equipo =new Equipo();
+                    Object[] resultado = listEstadisticas.get(i);
+                    
+                    jugador.setNombre(resultado[0].toString());
+                    
+                    equipo.setNombre(resultado[1].toString());
+                    equipo.setLogotipo(resultado[2].toString());
+                    jugador.setEquipo(equipo);
+                    
+                    estadisticas.setJugador(jugador);
+                    estadisticas.setMediaEstadisticasPartido(Byte.valueOf(resultado[3].toString()));
+
+                    listaEstadisticas.add(estadisticas);
+                }
+                request.setAttribute("listado", listaEstadisticas);
+                break;   
+            
+            case "taponadores":
+
+                listEstadisticas = adaoE.getTaponadores();
+                
+                listaEstadisticas = new ArrayList<>();
+
+                for (int i = 0; i < listEstadisticas.size(); i++) {
+                    jugador =new Jugador();
+                    estadisticas = new Estadisticas();
+                    equipo =new Equipo();
+                    Object[] resultado = listEstadisticas.get(i);
+                    
+                    jugador.setNombre(resultado[0].toString());
+                    
+                    equipo.setNombre(resultado[1].toString());
+                    equipo.setLogotipo(resultado[2].toString());
+                    jugador.setEquipo(equipo);
+                    
+                    estadisticas.setJugador(jugador);
+                    estadisticas.setMediaEstadisticasPartido(Byte.valueOf(resultado[3].toString()));
+
+                    listaEstadisticas.add(estadisticas);
+                }
+                request.setAttribute("listado", listaEstadisticas);
+                break;    
 
             case "nuevoAlumno":
                 url = "JSP/nuevo/Nuevo_Alumno.jsp";
@@ -124,6 +228,18 @@ public class Front extends HttpServlet {
                 case "anotadores":
                     url = "JSP/estadisticas/anotadores.jsp";
                     break;
+                
+                case "asistentes":
+                    url = "JSP/estadisticas/asistencias.jsp";
+                    break;    
+                
+                case "reboteadores":
+                    url = "JSP/estadisticas/rebotes.jsp";
+                    break;
+                
+                case "taponadores":
+                    url = "JSP/estadisticas/tapones.jsp";
+                    break;      
 
                 case "alumnos":
                     url = "JSP/listado/Notas_Alumnos.jsp";
