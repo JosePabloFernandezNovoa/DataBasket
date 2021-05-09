@@ -7,5 +7,6 @@ import java.util.List;
 public interface IEquipoDAO {
     
     public List<Equipo> getEquipo(Short id);
+    public List<Equipo> getEquiposConJugadores();
     
 }

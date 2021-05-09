@@ -9,6 +9,7 @@ import es.albarregas.beans.Equipo;
 import es.albarregas.beans.Estadisticas;
 import es.albarregas.beans.Jugador;
 import es.albarregas.beans.Partido;
+import es.albarregas.dao.IEquipoDAO;
 import es.albarregas.daofactory.DAOFactory;
 import java.io.IOException;
 
@@ -51,6 +52,7 @@ public class Front extends HttpServlet {
         IJugadorDAO adaoJ = daof.getJugadorDAO();
         IEstadisticaDAO adaoE = daof.getEstadisticaDAO();
         IUsuarioDAO adaoU = daof.getUsuarioDAO();
+        IEquipoDAO adaoEQ = daof.getEquipoDAO();
 
         List<Estadisticas> listaEstadisticas=null;
         List<Partido> listaPartidos = null;
@@ -79,6 +81,12 @@ public class Front extends HttpServlet {
                 listaEquipos = Edao.selectAll(Equipo.class);
                 request.setAttribute("listado", listaEquipos);
 
+                break;
+            
+            case "individuales":
+                listaEquipos = adaoEQ.getEquiposConJugadores();
+                request.setAttribute("listado", listaEquipos);
+                
                 break;
 
             case "anotadores":
@@ -224,6 +232,10 @@ public class Front extends HttpServlet {
                 case "equipos":
                     url = "JSP/equipos.jsp";
                     break;
+                
+                case "individuales":
+                    url = "JSP/estadisticas/individuales.jsp";
+                    break;    
 
                 case "anotadores":
                     url = "JSP/estadisticas/anotadores.jsp";

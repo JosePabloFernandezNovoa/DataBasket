@@ -68,6 +68,16 @@ public class ListadoAjax extends HttpServlet {
             
         }
         
+        if (request.getParameter("idEquipo") != null) {
+            String idEquipo = request.getParameter("idEquipo");
+
+            //recogemos todos los jugadores de eses equipo
+            listadoJugador = adaoJ.getJugadoresEquipo(Short.valueOf(idEquipo));
+            
+            arrayJSON = new JSONArray(listadoJugador);
+            
+        }
+        
         /*if (request.getParameter("nif") != null) {
             String nif = request.getParameter("nif");
             boolean nifRepetido = false;

@@ -35,4 +35,22 @@ public class EquipoDAO extends GenericoDAO implements IEquipoDAO {
         }
         return listaEquipo;
     }
+
+    @Override
+    public List<Equipo> getEquiposConJugadores() {
+        String hql="SELECT e FROM Equipo AS e WHERE e.idEquipo IN(SELECT equipo.idEquipo FROM Jugador)";
+        Query consulta=null;
+        List<Equipo> listaEquipo=null;
+        try {
+            startTransaction();
+            consulta=sesion.createQuery(hql);
+            
+            listaEquipo=(List<Equipo>)consulta.list();
+        } catch (HibernateException he) {
+            handleException(he);
+        }finally{
+            endTransaction();
+        }
+        return listaEquipo;
+    }
 }
