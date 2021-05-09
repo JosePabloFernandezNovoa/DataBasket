@@ -1,11 +1,12 @@
 <%-- 
-    Document   : individuales
-    Created on : 01-may-2021, 12:03:19
+    Document   : partidos
+    Created on : 20-abr-2021, 17:00:06
     Author     : Sammy Guergachi <sguergachi at gmail.com>
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,7 +14,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Agency - Start Bootstrap Theme</title>
+        <title>Partidos</title>
         <link rel="icon" type="image/x-icon" href="${pageContext.servletContext.contextPath}/assets/img/favicon.ico" />
         <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/dataTables.min.css">
         <link href="${pageContext.servletContext.contextPath}/js/jquery.dataTables.min.js">
@@ -25,6 +26,7 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="${pageContext.servletContext.contextPath}/css/styles.css" rel="stylesheet" />
+        <link href="${pageContext.servletContext.contextPath}/css/tablas.css" rel="stylesheet" />
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -37,9 +39,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ml-auto">
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.servletContext.contextPath}/index.html">Estadisticas</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.servletContext.contextPath}/front?id=partidos">Partidos</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.servletContext.contextPath}/front?id=equipos">Equipos</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Estadisticas</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="front?id=partidos">Partidos</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="front?id=equipos">Equipos</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.servletContext.contextPath}/JSP/contactos.html">Contactos</a></li>
                     </ul>
                     &nbsp;
@@ -51,37 +53,39 @@
         <section class="page-section" id="contact">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Estadísticas de un jugador</h2>
-                    <h3 class="section-subheading text-muted">selecciona un equipo y un jugador.</h3>
+                    <h2 class="section-heading text-uppercase">Partidos</h2>
+                    <h3 class="section-subheading text-muted">listado de partidos y su resultado.</h3>
                 </div>
-                    <div class="row align-items-stretch mb-5">
+                    <div class="row align-items-stretch mb-5 tablaJugadores">
                         
-                           
-                            <div class="form-group">
-                                <label for="campos" class="label">Equipo&nbsp;&nbsp;
-                                    <select class="form-select equipos" aria-label="Default select example">
-                                        <option selected>Elige uno...</option>
-                                        <c:forEach var="equipo" items="${requestScope.listado}"> 
-                                            <option value="${equipo.idEquipo}">${equipo.nombre}</option>
-                                        </c:forEach>
-                                    </select>
-                                </label>
-                            </div>
-                                
-                            
-                            <div class="form-group selectJugadores">
-                                <label for="campos" class="label">Jugadores&nbsp;&nbsp;
-                                    <select class="form-select jugadores" aria-label="Default select example">
-                                        <option selected>Elige uno...</option>
-                                      </select>
-                                </label>    
-                            </div>
-                   
-                           
+                        <c:set var="listado" value="${requestScope.listado}"/>
+                        <table id="jugadores" class="display" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Local</th>
+                                    <th>Resultado</th>
+                                    <th>Visitante</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               <c:forEach var="partido" items="${listado}"> 
+                                    <tr>
+                                        <td><img name="imagen" src="<c:url value='/imagenes/logos/${partido.equipoLocal.logotipo}'/>" width="60" height="60">&nbsp;&nbsp;${partido.equipoLocal.nombre}</td>
+                                        <td>${partido.puntosLocal}-${partido.puntosVisitante}</td>
+                                        <td><img name="imagen" src="<c:url value='/imagenes/logos/${partido.equipoVisitante.logotipo}'/>" width="60" height="60">&nbsp;&nbsp;${partido.equipoVisitante.nombre}</td>
+                                    </tr>
+                                 </c:forEach>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Local</th>
+                                    <th>Resultado</th>
+                                    <th>Visitante</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                       
                     </div>
-                <div class="estadisticas">
-                    
-                </div>
             </div>
         </section>
         <!-- Footer-->
@@ -100,16 +104,17 @@
                 </div>
             </div>
         </footer>
-       
         <!-- Portfolio Modals-->
         <!-- Bootstrap core JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/js/jquery.dataTables.min.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/js/datatable.js"></script>
         <!-- Third party plugin JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
         <!-- Core theme JS-->
         <script src="${pageContext.servletContext.contextPath}/js/scripts.js"></script>
-        <script src="${pageContext.servletContext.contextPath}/js/estadisticasIndividuales.js"></script>
     </body>
 </html>
+

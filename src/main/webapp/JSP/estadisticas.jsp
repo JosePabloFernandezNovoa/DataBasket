@@ -59,7 +59,7 @@
                     <div class="row">
                         <div class="col-lg-4 col-sm-6 mb-4">
                             <div class="portfolio-item">
-                                <a class="portfolio-link" href="${pageContext.servletContext.contextPath}/JSP/estadisticas/individuales.jsp">
+                                <a class="portfolio-link" href="${pageContext.servletContext.contextPath}/front?id=individuales">
                                     <div class="portfolio-hover">
                                         <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                     </div>
@@ -73,7 +73,7 @@
                         </div>
                         <div class="col-lg-4 col-sm-6 mb-4">
                             <div class="portfolio-item">
-                                <a class="portfolio-link" href="${pageContext.servletContext.contextPath}/JSP/estadisticas/compararjugadores.jsp">
+                                <a class="portfolio-link" href="${pageContext.servletContext.contextPath}/front?id=comparar">
                                     <div class="portfolio-hover">
                                         <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                     </div>
@@ -95,49 +95,49 @@
                                 </a>
                                 <div class="portfolio-caption">
                                     <div class="portfolio-caption-heading">Maximos Anotadores</div>
-                                    <div class="portfolio-caption-subheading text-muted">Muestra los mayores anotadores</div>
+                                    <div class="portfolio-caption-subheading text-muted">Muestra los máximos anotadores</div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
                             <div class="portfolio-item">
-                                <a class="portfolio-link" href="${pageContext.servletContext.contextPath}/JSP/estadisticas/asistencias.jsp">
+                                <a class="portfolio-link" href="${pageContext.servletContext.contextPath}/front?id=asistentes">
                                     <div class="portfolio-hover">
                                         <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                     </div>
-                                    <img class="img-fluid" src="${pageContext.servletContext.contextPath}/imagenes/estadisticas/asistencias.png" alt="" />
+                                    <img class="img-fluid" src="${pageContext.servletContext.contextPath}/imagenes/estadisticas/asistente.png" alt="" />
                                 </a>
                                 <div class="portfolio-caption">
-                                    <div class="portfolio-caption-heading">Lines</div>
-                                    <div class="portfolio-caption-subheading text-muted">Branding</div>
+                                    <div class="portfolio-caption-heading">Máximos Asistentes</div>
+                                    <div class="portfolio-caption-subheading text-muted">Muestra los máximos asistentes</div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-sm-6 mb-4 mb-sm-0">
                             <div class="portfolio-item">
-                                <a class="portfolio-link" href="${pageContext.servletContext.contextPath}/JSP/estadisticas/rebotes.jsp">
+                                <a class="portfolio-link" href="${pageContext.servletContext.contextPath}/front?id=reboteadores">
                                     <div class="portfolio-hover">
                                         <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                     </div>
-                                    <img class="img-fluid" src=".${pageContext.servletContext.contextPath}/imagenes/estadisticas/rebotes.png" alt="" />
+                                    <img class="img-fluid" src="${pageContext.servletContext.contextPath}/imagenes/estadisticas/rebotes.png" alt="" />
                                 </a>
                                 <div class="portfolio-caption">
-                                    <div class="portfolio-caption-heading">Southwest</div>
-                                    <div class="portfolio-caption-subheading text-muted">Website Design</div>
+                                    <div class="portfolio-caption-heading">Máximos Reboteadores</div>
+                                    <div class="portfolio-caption-subheading text-muted">Muestra los máximos reboteadores</div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-sm-6">
                             <div class="portfolio-item">
-                                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal6">
+                                <a class="portfolio-link" href="${pageContext.servletContext.contextPath}/front?id=taponadores">
                                     <div class="portfolio-hover">
                                         <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                     </div>
-                                    <img class="img-fluid" src="../assets/img/portfolio/06-thumbnail.jpg" alt="" />
+                                    <img class="img-fluid" src="${pageContext.servletContext.contextPath}/imagenes/estadisticas/taponeador.png" alt="" />
                                 </a>
                                 <div class="portfolio-caption">
-                                    <div class="portfolio-caption-heading">Window</div>
-                                    <div class="portfolio-caption-subheading text-muted">Photography</div>
+                                    <div class="portfolio-caption-heading">Máximos Taponadores</div>
+                                    <div class="portfolio-caption-subheading text-muted">Muestra los máximos taponadores</div>
                                 </div>
                             </div>
                         </div>
