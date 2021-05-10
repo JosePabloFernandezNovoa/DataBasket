@@ -25,6 +25,9 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="${pageContext.servletContext.contextPath}/css/styles.css" rel="stylesheet" />
+        <!--Chart-->
+        <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/Chart.min.css">
+        <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/graficos.css">
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -54,34 +57,48 @@
                     <h2 class="section-heading text-uppercase">Estadísticas de un jugador</h2>
                     <h3 class="section-subheading text-muted">selecciona un equipo y un jugador.</h3>
                 </div>
-                    <div class="row align-items-stretch mb-5">
-                        
-                           
-                            <div class="form-group">
-                                <label for="campos" class="label">Equipo&nbsp;&nbsp;
-                                    <select class="form-select equipos" aria-label="Default select example">
-                                        <option selected>Elige uno...</option>
-                                        <c:forEach var="equipo" items="${requestScope.listado}"> 
-                                            <option value="${equipo.idEquipo}">${equipo.nombre}</option>
-                                        </c:forEach>
-                                    </select>
-                                </label>
-                            </div>
-                                
-                            
-                            <div class="form-group selectJugadores">
-                                <label for="campos" class="label">Jugadores&nbsp;&nbsp;
-                                    <select class="form-select jugadores" aria-label="Default select example">
-                                        <option selected>Elige uno...</option>
-                                      </select>
-                                </label>    
-                            </div>
-                   
-                           
+                <div class="row align-items-stretch mb-5">
+
+
+                    <div class="form-group">
+                        <label for="campos" class="label">Equipo&nbsp;&nbsp;
+                            <select class="form-select equipos" aria-label="Default select example">
+                                <option selected>Elige uno...</option>
+                                <c:forEach var="equipo" items="${requestScope.listado}"> 
+                                    <option value="${equipo.idEquipo}">${equipo.nombre}</option>
+                                </c:forEach>
+                            </select>
+                        </label>
                     </div>
-                <div class="estadisticas">
-                    
+
+
+                    <div class="form-group selectJugadores">
+                        <label for="campos" class="label">Jugadores&nbsp;&nbsp;
+                            <select class="form-select jugadores" aria-label="Default select example">
+                                <option selected>Elige uno...</option>
+                            </select>
+                        </label>    
+                    </div>
+
+
                 </div>
+                <div class="container">
+                    <div class="row"> 
+                        <div class="medias col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="tabla"></div>
+                        </div>
+                    </div>
+                    <div class="row"> 
+                        <div class="centro col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="row">
+                                <div class="graficos graficoPuntos col-lg-6 col-md-6 col-sm-6 col-xs-6"></div>
+                                <div class="graficos graficoAsistencias col-lg-6 col-md-6 col-sm-6 col-xs-6"></div>
+                                <div class="graficos graficoRebotes col-lg-6 col-md-6 col-sm-6 col-xs-6"></div>          
+                                <div class="graficos graficoTapones col-lg-6 col-md-6 col-sm-6 col-xs-6"></div>                                    
+                            </div>
+                        </div>
+                    </div>
+                </div>  
             </div>
         </section>
         <!-- Footer-->
@@ -100,7 +117,7 @@
                 </div>
             </div>
         </footer>
-       
+
         <!-- Portfolio Modals-->
         <!-- Bootstrap core JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -111,5 +128,8 @@
         <!-- Core theme JS-->
         <script src="${pageContext.servletContext.contextPath}/js/scripts.js"></script>
         <script src="${pageContext.servletContext.contextPath}/js/estadisticasIndividuales.js"></script>
+        <!-- Chart -->
+        <script src="${pageContext.servletContext.contextPath}/js/Chart.min.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/js/Chart.bundle.js"></script>  
     </body>
 </html>

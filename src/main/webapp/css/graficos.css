@@ -1,0 +1,23 @@
+canvas{
+    background-color: white;
+}
+
+.graficos{
+    height: 300px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.tituloGraf{
+    background-color: orange;
+    font-style: italic;
+}
+
+.tabla{
+    text-align: center;
+    border: black;
+}
+
+.medias{
+    margin-top: 20px;
+}
