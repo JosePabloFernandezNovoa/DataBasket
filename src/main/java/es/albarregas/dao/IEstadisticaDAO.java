@@ -13,4 +13,5 @@ public interface IEstadisticaDAO {
     public List<Object[]> getAsistentes();
     public List<Object[]> getReboteadores();
     public List<Object[]> getTaponadores();
+    public List<Estadisticas> getEstadisticasJugador(Short id);
 }

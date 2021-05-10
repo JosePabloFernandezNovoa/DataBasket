@@ -1,8 +1,10 @@
 package es.albarregas.controllers;
 
 import es.albarregas.beans.Equipo;
+import es.albarregas.beans.Estadisticas;
 import es.albarregas.beans.Jugador;
 import es.albarregas.dao.IEquipoDAO;
+import es.albarregas.dao.IEstadisticaDAO;
 import es.albarregas.daofactory.DAOFactory;
 import java.io.IOException;
 
@@ -42,10 +44,12 @@ public class ListadoAjax extends HttpServlet {
         IGenericoDAO<Jugador> Jdao = daof.getGenericoDAO();
         IJugadorDAO adaoJ = daof.getJugadorDAO();
         IEquipoDAO adaoE = daof.getEquipoDAO();
+        IEstadisticaDAO adaoEQ = daof.getEstadisticaDAO();
         
         Jugador jugador= null;
         List<Jugador> listadoJugador = null;
         List<Equipo> listadoEquipo = null;
+        List<Estadisticas> listadoEstadisticas = null;
         
         if (request.getParameter("equipo") != null) {
             String idEquipo = request.getParameter("equipo");
@@ -75,6 +79,15 @@ public class ListadoAjax extends HttpServlet {
             listadoJugador = adaoJ.getJugadoresEquipo(Short.valueOf(idEquipo));
             
             arrayJSON = new JSONArray(listadoJugador);
+            
+        }
+        
+        if (request.getParameter("jugador") != null) {
+            String idJugador = request.getParameter("jugador");
+            
+            listadoEstadisticas = adaoEQ.getEstadisticasJugador(Short.valueOf(idJugador));
+            
+            arrayJSON = new JSONArray(listadoEstadisticas);
             
         }
         

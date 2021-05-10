@@ -87,5 +87,25 @@ String hql = "SELECT e.jugador.nombre,e.jugador.equipo.nombre,e.jugador.equipo.l
         } finally {
             endTransaction();
         }
-        return taponadores;    }
+        return taponadores;    
+    }
+
+    @Override
+    public List<Estadisticas> getEstadisticasJugador(Short id) {
+        String hql = "SELECT e FROM Estadisticas AS e WHERE e.jugador.idJugador=:id";
+        Query consulta = null;
+        List<Estadisticas> estadisticas = null;
+        try {
+            startTransaction();
+            consulta = sesion.createQuery(hql);
+            consulta.setParameter("id", id);
+
+            estadisticas = (List<Estadisticas>) consulta.list();
+        } catch (HibernateException he) {
+            handleException(he);
+        } finally {
+            endTransaction();
+        }
+        return estadisticas;    
+    }
 }
