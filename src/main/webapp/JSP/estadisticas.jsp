@@ -53,7 +53,7 @@
             <section class="page-section bg-light contact" id="portfolio">
                 <div class="container">
                     <div class="text-center">
-                        <h2 class="section-heading text-uppercase">Estadísticas</h2>
+                        <h2 class="section-heading text-uppercase tituloEstadisticas">Estadísticas</h2>
                         <h3 class="section-subheading text-muted">visualiza y compara estadisticas entre jugadores.</h3>
                     </div>
                     <div class="row">

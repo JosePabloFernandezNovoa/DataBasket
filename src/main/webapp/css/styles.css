@@ -10550,3 +10550,7 @@ div#contact .section-heading {
     color: white;
     margin-right: 10px;
 }
+
+div#contact .tituloEstadisticas {
+  color: black;
+}
