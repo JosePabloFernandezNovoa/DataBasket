@@ -88,6 +88,12 @@ public class Front extends HttpServlet {
                 request.setAttribute("listado", listaEquipos);
                 
                 break;
+                
+            case "compararEstadisticas":
+                listaEquipos = adaoEQ.getEquiposConJugadores();
+                request.setAttribute("listado", listaEquipos);
+                
+                break;    
 
             case "anotadores":
 
@@ -235,6 +241,10 @@ public class Front extends HttpServlet {
                 
                 case "individuales":
                     url = "JSP/estadisticas/individuales.jsp";
+                    break;  
+                 
+                case "compararEstadisticas":
+                    url = "JSP/estadisticas/compararjugadores.jsp";
                     break;    
 
                 case "anotadores":
