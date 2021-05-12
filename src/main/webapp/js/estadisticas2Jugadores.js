@@ -1,5 +1,6 @@
 $(function () {
     $('.selectJugadores').hide();
+    $('.selectJugadores2').hide();
     $('.equipos').on('change', function () {
         const  option = $(".equipos option:selected").val();
         //comprobamos que la eleccion del usuario no es la de por defecto

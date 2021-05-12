@@ -28,6 +28,7 @@
         <!--Chart-->
         <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/Chart.min.css">
         <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/graficos.css">
+        <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/tablas.css">
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -84,10 +85,8 @@
                 </div>
                 <div class="container">
                     <div class="row"> 
-                        <div class="imagen col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                            <img name="imagen"  id="imagen" src="" width="300" height="200">
-                        </div>
-                        <div class="informacion col-lg-8 col-md-8 col-sm-12 col-xs-12">hola</div>
+                        <div class="imagen col-lg-4 col-md-4 col-sm-12 col-xs-12"></div>
+                        <div class="informacion col-lg-8 col-md-8 col-sm-12 col-xs-12"></div>
                     </div>
                     <div class="row"> 
                         <div class="medias col-lg-12 col-md-12 col-sm-12 col-xs-12">
