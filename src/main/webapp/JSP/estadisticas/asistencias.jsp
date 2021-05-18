@@ -56,10 +56,10 @@
                     <h2 class="section-heading text-uppercase">Máximos Asistentes</h2>
                     <h3 class="section-subheading text-muted">listado de asistencias y sus resultados.</h3>
                 </div>
-                    <div class="row align-items-stretch mb-5 tablaJugadores">
+                    <div class="row align-items-stretch mb-5 tablaAsistencias">
                         
                         <c:set var="listado" value="${requestScope.listado}"/>
-                        <table id="jugadores" class="display" style="width:100%">
+                        <table id="jugadores" class="display asistencias" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Nombre</th>

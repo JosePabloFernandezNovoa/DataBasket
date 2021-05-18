@@ -62,7 +62,7 @@
 
 
                     <div class="form-group">
-                        <label for="campos" class="label">Equipo&nbsp;&nbsp;
+                        <label for="campos" class="label">Equipo 1&nbsp;&nbsp;
                             <select class="form-select equipos" aria-label="Default select example">
                                 <option selected>Elige uno...</option>
                                 <c:forEach var="equipo" items="${requestScope.listado}"> 
@@ -74,15 +74,15 @@
 
 
                     <div class="form-group selectJugadores">
-                        <label for="campos" class="label">Jugadores&nbsp;&nbsp;
+                        <label for="campos" class="label">Jugador 1&nbsp;&nbsp;
                             <select class="form-select jugadores" aria-label="Default select example">
-                                <option selected>Elige uno...</option>
+                                <option value="0" selected>Elige uno...</option>
                             </select>
                         </label>    
                     </div>
                     
                     <div class="form-group">
-                        <label for="campos" class="label">Equipo&nbsp;&nbsp;
+                        <label for="campos" class="label">Equipo 2&nbsp;&nbsp;
                             <select class="form-select equipos2" aria-label="Default select example">
                                 <option selected>Elige uno...</option>
                                 <c:forEach var="equipo" items="${requestScope.listado}"> 
@@ -94,9 +94,9 @@
 
 
                     <div class="form-group selectJugadores2">
-                        <label for="campos" class="label">Jugadores&nbsp;&nbsp;
+                        <label for="campos" class="label">Jugador 2&nbsp;&nbsp;
                             <select class="form-select jugadores2" aria-label="Default select example">
-                                <option selected>Elige uno...</option>
+                                <option value="0" selected>Elige uno...</option>
                             </select>
                         </label>    
                     </div>
@@ -105,8 +105,9 @@
                 </div>
                 <div class="container">
                     <div class="row"> 
-                        <div class="imagen col-lg-4 col-md-4 col-sm-12 col-xs-12"></div>
-                        <div class="informacion col-lg-8 col-md-8 col-sm-12 col-xs-12"></div>
+                        <div class="imagenJ1 col-lg-5 col-md-5 col-sm-12 col-xs-12"></div>
+                        <div class="versus col-lg-2 col-md-2 col-sm-12 col-xs-12"></div>
+                        <div class="imagenJ2 col-lg-5 col-md-5 col-sm-12 col-xs-12"></div>
                     </div>
                     <div class="row"> 
                         <div class="medias col-lg-12 col-md-12 col-sm-12 col-xs-12">
