@@ -25,6 +25,7 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="${pageContext.servletContext.contextPath}/css/styles.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
         <!--Chart-->
         <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/Chart.min.css">
         <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/graficos.css">
@@ -58,51 +59,45 @@
                     <h2 class="section-heading text-uppercase">Comparar Estadísticas</h2>
                     <h3 class="section-subheading text-muted">selecciona equipo y un jugador.</h3>
                 </div>
-                <div class="row align-items-stretch mb-5">
+                <div class="row">
 
 
-                    <div class="form-group">
-                        <label for="campos" class="label">Equipo 1&nbsp;&nbsp;
-                            <select class="form-select equipos" aria-label="Default select example">
-                                <option selected>Elige uno...</option>
-                                <c:forEach var="equipo" items="${requestScope.listado}"> 
-                                    <option value="${equipo.idEquipo}">${equipo.nombre}</option>
-                                </c:forEach>
-                            </select>
-                        </label>
-                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <label for="campos" class="label">Equipo 1&nbsp;&nbsp;</label>
+                        <select class="form-select equipos" aria-label="Default select example">
+                            <option selected>Elige uno...</option>
+                            <c:forEach var="equipo" items="${requestScope.listado}"> 
+                                <option value="${equipo.idEquipo}">${equipo.nombre}</option>
+                            </c:forEach>
+                        </select> 
 
-
-                    <div class="form-group selectJugadores">
-                        <label for="campos" class="label">Jugador 1&nbsp;&nbsp;
+                        <div class="selectJugadores">
+                            <label for="campos" class="label">Jugador 1&nbsp;&nbsp;</label>
                             <select class="form-select jugadores" aria-label="Default select example">
                                 <option value="0" selected>Elige uno...</option>
                             </select>
-                        </label>    
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="campos" class="label">Equipo 2&nbsp;&nbsp;
-                            <select class="form-select equipos2" aria-label="Default select example">
-                                <option selected>Elige uno...</option>
-                                <c:forEach var="equipo" items="${requestScope.listado}"> 
-                                    <option value="${equipo.idEquipo}">${equipo.nombre}</option>
-                                </c:forEach>
-                            </select>
-                        </label>
+
+                        </div>
                     </div>
 
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <label for="campos" class="label">Equipo 2&nbsp;&nbsp;</label>
+                        <select class="form-select equipos2" aria-label="Default select example">
+                            <option selected>Elige uno...</option>
+                            <c:forEach var="equipo" items="${requestScope.listado}"> 
+                                <option value="${equipo.idEquipo}">${equipo.nombre}</option>
+                            </c:forEach>
+                        </select>
+                        <div class="selectJugadores2">
+                        <label for="campos" class="label">Jugador 2&nbsp;&nbsp;</label> 
+                        <select class="form-select jugadores2" aria-label="Default select example">
+                            <option value="0" selected>Elige uno...</option>
+                        </select>
 
-                    <div class="form-group selectJugadores2">
-                        <label for="campos" class="label">Jugador 2&nbsp;&nbsp;
-                            <select class="form-select jugadores2" aria-label="Default select example">
-                                <option value="0" selected>Elige uno...</option>
-                            </select>
-                        </label>    
                     </div>
-
-
+                    </div>
                 </div>
+                <br><br>
                 <div class="container">
                     <div class="row"> 
                         <div class="imagenJ1 col-lg-5 col-md-5 col-sm-12 col-xs-12"></div>

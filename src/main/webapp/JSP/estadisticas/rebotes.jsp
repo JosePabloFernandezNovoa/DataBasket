@@ -27,6 +27,8 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="${pageContext.servletContext.contextPath}/css/styles.css" rel="stylesheet" />
         <link href="${pageContext.servletContext.contextPath}/css/tablas.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -56,10 +58,10 @@
                     <h2 class="section-heading text-uppercase">Máximos Reboteadores</h2>
                     <h3 class="section-subheading text-muted">listado de reboteadores y sus resultados.</h3>
                 </div>
-                    <div class="row align-items-stretch mb-5 tablaJugadores">
+                    <div class="row align-items-stretch mb-5 tablaRebotes">
                         
                         <c:set var="listado" value="${requestScope.listado}"/>
-                        <table id="jugadores" class="display" style="width:100%">
+                        <table id="jugadores" class="display rebotes" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Nombre</th>

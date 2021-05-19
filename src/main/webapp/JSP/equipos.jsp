@@ -27,6 +27,8 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="${pageContext.servletContext.contextPath}/css/styles.css" rel="stylesheet" />
         <link href="${pageContext.servletContext.contextPath}/css/tablas.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 
@@ -66,28 +68,32 @@
                     <script src="${pageContext.servletContext.contextPath}/js/ocultarTabla.js"></script>
                 </c:if>  
 
-
-                <div class="datosEquipo row align-items-stretch mb-5">
+                <div class="datosEquipo col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <form action="listar" method="post">    
-                        <div class="form-group">
-                            <select class="form-select" name="equipos">
-                                <c:forEach var="equipo" items="${requestScope.listado}"> 
-                                    <option value="${equipo.idEquipo}">${equipo.nombre}</option>
-                                </c:forEach>
-                            </select>
-                            <button type="submit" value="Buscar" id="buscar" name="datosEquipoJugador" class="btn btn-warning">Buscar</button>
-                        </div>
-                        <div id="infoEquipo">
-                            <c:forEach var="equipo" items="${requestScope.listadoEquipo}"> 
-                                <h2 id="nombreEquipo">${equipo.nombre}</h2><br>
-                                <img name="imagen" src="<c:url value='/imagenes/logos/${equipo.logotipo}'/>" width="200" height="200"><br>
-                                <h4><button type="button" class="btn btn-info info"><i class="fas fa-info"></i></button>&nbsp;
-                                    Pulsa para conocer mas sobre los ${equipo.nombre}</h4>
-                                </c:forEach>
 
-                        </div>
+                        <label for="campos" class="label">Equipo</label>
+                        <select class="form-select" name="equipos">
+                            <c:forEach var="equipo" items="${requestScope.listado}"> 
+                                <option value="${equipo.idEquipo}">${equipo.nombre}</option>
+                            </c:forEach>
+                        </select>
+
 
                 </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <button type="submit" value="Buscar" id="buscar" name="datosEquipoJugador" class="btn btn-warning">Buscar</button>
+                </div>    
+                <div id="infoEquipo">
+                    <c:forEach var="equipo" items="${requestScope.listadoEquipo}"> 
+                        <h2 id="nombreEquipo">${equipo.nombre}</h2><br>
+                        <img name="imagen" src="<c:url value='/imagenes/logos/${equipo.logotipo}'/>" width="200" height="200"><br>
+                        <h4><button type="button" class="btn btn-info info"><i class="fas fa-info"></i></button>&nbsp;
+                            Pulsa para conocer mas sobre los ${equipo.nombre}</h4>
+                        </c:forEach>
+
+                </div>
+
+
 
                 <div class="tablaJugadores">
                     <table id="jugadores" class="display" style="width:100%">
@@ -152,7 +158,7 @@
                                 <img name="imagen" src="<c:url value='/imagenes/logos/${equipo.logotipo}'/>" width="150" height="150"><br><br>
                             </div>
                             <ul>
-                                <li><h4>Ciudad :</strong> ${equipo.ciudad}</h4></li>
+                                <li><h4><strong>Ciudad :</strong> ${equipo.ciudad}</h4></li>
                                 <li><h4><strong>Conferencia :</strong> ${equipo.conferencia}</h4></li>
                                 <li><h4><strong>División :</strong> ${equipo.division}</h4></li>
                                 <li><h4><strong>Entrenador :</strong> ${equipo.entrenador}</h4></li>
@@ -180,7 +186,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
-                             
+
                     </div>
                 </div>
 

@@ -10498,12 +10498,22 @@ section#contact form#contactForm :-ms-input-placeholder {
   text-align: center;
 }
 
-#asistencias{
+.tablaAnotadores{
   background-color: white;
   text-align: center;
 }
 
-.tablaAnotadores{
+.tablaRebotes{
+  background-color: white;
+  text-align: center;
+}
+
+.tablaTapones{
+  background-color: white;
+  text-align: center;
+}
+
+#asistencias{
   background-color: white;
   text-align: center;
 }
@@ -10545,7 +10555,6 @@ div#contact .section-heading {
 
 #infoEquipo{
     color: white;
-    margin-left: 220px;
     text-align: center;
 }
 
@@ -10572,4 +10581,8 @@ div#contact .tituloEstadisticas {
 
 .versus{
     margin-top: 30px;
+}
+
+select{
+    width: 300px;
 }
