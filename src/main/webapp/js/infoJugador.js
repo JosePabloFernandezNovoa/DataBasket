@@ -40,17 +40,16 @@ function jugador(option) {
 }
 
 function crearInfo(data) {
-    let tablaJugador = `<TABLE CELLPADDING="20" BORDER="2">
-                            <TR><TD ROWSPAN=2><img name="imagen" src="/DataBasket/imagenes/avatares/${data[0].foto}" width="150" height="180"></TD>
-                                <TD>Nombre: <strong>${data[0].nombre}</strong></TD> <TD>Posición: <strong>${data[0].posicion}</strong></TD>
-                            </TR>
-                            <TR><TD>Edad: <strong>${data[0].edad}</strong></TD> <TD>Altura: <strong>${data[0].altura} </strong>cm</TD>
-                            </TR>
-                            <TR><TD>Procedencia: <strong>${data[0].procedencia}</strong></TD><TD>Nacionalidad: <strong>${data[0].nacionalidad}</strong></TD>
-                                <TD>Peso: <strong>${data[0].peso} </strong>kg</TD>
-                            </TR>
-                        </TABLE>`;
+    let tablaJugador = `<div id="infoJuaforPersonal"><img id="fotoJug" name="imagen" src="/DataBasket/imagenes/avatares/${data[0].foto}" width="230" height="200"><br>
+                                <ul>
+                                    <li><h4><Strong>Nombre: </strong>${data[0].nombre}</h4></li>
+                                    <li><h4><strong>Posición: </strong>${data[0].posicion}<br></h4></li>
+                                    <li><h4><strong>Edad: </strong>${data[0].edad} <strong>Altura: </strong>${data[0].altura} cm <strong>Peso: </strong>${data[0].peso} kg<br></h4></li>
+                                    <li><h4><strong>Procedencia: </strong>${data[0].procedencia}<br></h4></li>
+                                    <li><h4><strong>Nacionalidad: </strong>${data[0].nacionalidad}<br></h4></li>
+                                </ul>
+                                </div>`;
 
-    
+    $('.infoJuaforPersonal').remove();
     $('.informacionJugador').children('.modal-dialog').children('.modal-content').children('.modal-body').append(tablaJugador);
 }

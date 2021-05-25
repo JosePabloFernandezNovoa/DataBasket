@@ -185,7 +185,7 @@
                         <h4 class="modal-title">Información del Jugador</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body datosJug">
 
                     </div>
                 </div>

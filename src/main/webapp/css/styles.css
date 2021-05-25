@@ -10586,3 +10586,30 @@ div#contact .tituloEstadisticas {
 select{
     width: 300px;
 }
+
+#fotoJug{
+    margin-bottom: 20px;
+    align-content: center;
+    margin-left: 100px;
+}
+
+#inicioSesion{
+    color: white;
+    text-decoration: none;
+}
+
+.menuEstats{
+    display: none;
+}
+
+.cerrar{
+    color: red;
+}
+
+.logo{
+    width: 200px;
+    height: 400px;
+}
+.etiqueta{
+    color: white;
+}
