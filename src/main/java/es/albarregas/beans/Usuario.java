@@ -14,13 +14,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
-import org.hibernate.annotations.ColumnDefault;
+
 
 
 /**
@@ -28,46 +25,43 @@ import org.hibernate.annotations.ColumnDefault;
  * @author jp-9
  */
 @Entity
-@Table(name="usuarios", uniqueConstraints = {
-@UniqueConstraint(columnNames = "Email", name="UK_usuarios_Email"),@UniqueConstraint(columnNames = "Dni", name="UK_usuarios_Dni")})
-@Inheritance(strategy=InheritanceType.JOINED)
+@Table(name="usuarios")
 public class Usuario implements Serializable{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "IdUsuario")
+    @Column(name = "idUsuario")
     private Integer idUsuario;
     
-    @Column(name = "Email", length = 60, nullable = false)
-    private String email;
+    @Column(name = "usuario", length = 60, nullable = false)
+    private String usuario;
     
-    @Column(name = "Password", length = 128, nullable = false)
+    @Column(name = "password", length = 128, nullable = false)
     private String password;
     
-    @Column(name = "Nombre", length = 30)
+    @Column(name = "nombre", length = 30)
     private String nombre;
     
-    @Column(name = "Apellidos", length = 60)
+    @Column(name = "apellidos", length = 50)
     private String apellidos;
     
     public enum Rol{
         ADMIN, 
-        TUTOR,
-        ALUMNO
+        USER
     }
-    @Column(name="Rol", nullable=false)
+    @Column(name="rol", nullable=false)
     @Enumerated(EnumType.STRING)
     private Rol rol;
-    
-    @Column(name = "Dni", length = 9, nullable = false)
-    private String dni;
+      
+    @Column(name = "avatar", length = 30, columnDefinition = "varchar(30) default 'avatar.png'")
+    private String avatar;
     
     @Temporal(TemporalType.DATE)
-    @Column(name = "UltimoAcceso")
-    private Date ultimoAcceso;
+    @Column(name = "fechaNacimiento", nullable = true)
+    private Date fechaNacimiento;
     
-    @Column(name = "Avatar", length = 30, columnDefinition = "varchar(30) default 'avatar.png'")
-    private String avatar;
-
+    @Column(name = "telefono", length = 9, nullable = true)
+    private String telefono;
+    
     /**
      * @return the idUsuario
      */
@@ -82,19 +76,14 @@ public class Usuario implements Serializable{
         this.idUsuario = idUsuario;
     }
 
-    /**
-     * @return the email
-     */
-    public String getEmail() {
-        return email;
+    public String getUsuario() {
+        return usuario;
     }
 
-    /**
-     * @param email the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
+
 
     /**
      * @return the password
@@ -153,34 +142,6 @@ public class Usuario implements Serializable{
     }
 
     /**
-     * @return the dni
-     */
-    public String getDni() {
-        return dni;
-    }
-
-    /**
-     * @param dni the dni to set
-     */
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
-    /**
-     * @return the ultimoAcceso
-     */
-    public Date getUltimoAcceso() {
-        return ultimoAcceso;
-    }
-
-    /**
-     * @param ultimoAcceso the ultimoAcceso to set
-     */
-    public void setUltimoAcceso(Date ultimoAcceso) {
-        this.ultimoAcceso = ultimoAcceso;
-    }
-
-    /**
      * @return the avatar
      */
     public String getAvatar() {
@@ -199,6 +160,21 @@ public class Usuario implements Serializable{
         return nombre + " " + apellidos;
     }
 
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
     
 
     

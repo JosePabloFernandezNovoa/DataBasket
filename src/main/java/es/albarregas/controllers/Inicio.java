@@ -15,19 +15,15 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import es.albarregas.dao.IJugadorDAO;
+
 
 /**
  *
  * @author Jesus
  */
-@WebServlet(name = "Inicio", urlPatterns = {"/inicio"})
+@WebServlet(name = "inicio", urlPatterns = {"/inicio"})
 public class Inicio extends HttpServlet {
 
     /**
@@ -43,71 +39,46 @@ public class Inicio extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
         DAOFactory daof = DAOFactory.getDAOFactory();
-        IGenericoDAO<Usuario> Udao = daof.getGenericoDAO();
-        //IUsuarioDAO adaoU = daof.getUsuarioDAO();
-       // IJugadorDAO adaoT = daof.getTutorDAO();
+        IUsuarioDAO adaoU = daof.getUsuarioDAO();
 
         Usuario usuario = new Usuario();
         String url = null;
         Boolean comprobacion = false;
 
-        /*if (request.getParameter("enviar") != null) {
+        if (request.getParameter("login") != null) {
 
-            String user = request.getParameter("user");
-            String password = request.getParameter("password");
+            String user = request.getParameter("username");
+            String password = request.getParameter("passwordInicio");
 
             //Cifrar password 
-            //String passwordCifrada=getMD5(password);
+            String passwordCifrada=getMD5(password);
             
-            //comprobacion = adaoU.comprobarCredenciales(user, passwordCifrada);
+            comprobacion = adaoU.comprobarCredenciales(user, passwordCifrada);
 
-            //if (comprobacion == true) {
-               // Integer idUsuario = adaoU.getIdUsuario(user);
-               // request.getSession().setAttribute("usuario", idUsuario);
+            if (comprobacion == true) {
+                Integer idUsuario = adaoU.getIdUsuario(user);
+                request.getSession().setAttribute("idUser", idUsuario);
 
-               // Object rol = adaoU.getRol(user);
-                //request.getSession().setAttribute("rol", rol.toString());
+                Object rol = adaoU.getRol(user);
+                request.getSession().setAttribute("rol", rol.toString());
 
-                //Comprobar primer acceso
-               // Boolean primerAcceso = adaoU.getPrimerAcceso(idUsuario);
+                Object[] nomApe=adaoU.getNombreApelidos(idUsuario);
+                String nombreApellidos=nomApe[0]+" "+nomApe[1];
+                request.getSession().setAttribute("nombreApellidos", nombreApellidos);
+                request.getSession().setAttribute("usuario", user);
+
                 
-                
-               // Object[] nomApe=adaoU.getNombreApelidos(idUsuario);
-               // String nombreApellidos=nomApe[0]+" "+nomApe[1];
-               // request.getSession().setAttribute("nombreApellidos", nombreApellidos);
-                //request.getSession().setAttribute("email", user);
-
-               /* if (primerAcceso == true && !rol.equals("ADMIN")) {
-                    request.setAttribute("primerAcceso", true);
-                }*/
-
-              /*  if (rol.toString().equals("TUTOR")) {
-                    Object idCiclo = adaoT.getIdCicloTutor(idUsuario);
-                    System.out.println(idCiclo.toString());
-                    request.getSession().setAttribute("idCiclo", idCiclo.toString());
-                    request.getSession().setAttribute("password", password);
-                }
-                
-                if (rol.toString().equals("ALUMNO")) {
+                if (rol.toString().equals("USER")) {
                     request.getSession().setAttribute("password", password);
                 }
 
-                //Modificar fecha de acceso
-                Date date = new Date();
-                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                Date fecha = formato.parse(formato.format(date));
-
-                usuario = Udao.getById(idUsuario, Usuario.class);
-                usuario.setUltimoAcceso(fecha);
-                Udao.insertOrUpdate(usuario);
-
-                url = "principal.jsp";
-            } else {
                 url = "index.jsp";
+            } else {
+                url = "JSP/inicioSesionYRegistro.jsp";
                 request.setAttribute("errorCredencial", true);
             }
 
-        }*/
+        }
 
         request.getRequestDispatcher(url).forward(request, response);
     }

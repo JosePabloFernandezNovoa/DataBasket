@@ -15,19 +15,17 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
-import java.util.List;
-import java.util.Set;
-import java.sql.Date;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import es.albarregas.dao.IEstadisticaDAO;
+
 
 /**
  *
  * @author Jesus
  */
-@WebServlet(name = "Crear", urlPatterns = {"/crear"})
+@WebServlet(name = "crear", urlPatterns = {"/crear"})
 public class CrearDatos extends HttpServlet {
 
     /**
@@ -43,47 +41,36 @@ public class CrearDatos extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException, InvocationTargetException {
         DAOFactory daof = DAOFactory.getDAOFactory();
-        /*IGenericoDAO<Tutor> Tdao = daof.getGenericoDAO();
-        IGenericoDAO<Alumno> Adao = daof.getGenericoDAO();
-        IGenericoDAO<Ciclo> Cdao = daof.getGenericoDAO();*/
-        
-        /*IEstadisticaDAO adaoA = daof.getAlumnoDAO();
-        ICicloDAO adaoC = daof.getCicloDAO();
+        IGenericoDAO<Usuario> Udao = daof.getGenericoDAO();
 
-        Tutor tutor = new Tutor();
-        Ciclo ciclo = new Ciclo();
-        Nota nota = null;
-        Alumno alumno = new Alumno();
-        List<Alumno> listaAlumnos = null;
-        List<Modulo> listaModulos = null;
-        List<Nota> listaNotas = new ArrayList<>();
-        String checks = null;
+        Usuario usuario = new Usuario();
+     
         String url = null;
 
-        if (request.getParameter("nuevoTutor") != null) {
+        if (request.getParameter("nuevoUsuario") != null) {
 
-            String dni = request.getParameter("dni");
+            String nombre = request.getParameter("nombre");
+            String apellidos = request.getParameter("apellidos");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            String cicloNombre = request.getParameter("ciclo");
             String passwordCifrada=getMD5(password);
             
-            System.out.println(cicloNombre);
-            if (!cicloNombre.equals("0")) {
-                //ciclo = Cdao.getById(Integer.parseInt(request.getParameter("ciclo")), Ciclo.class);
-                ciclo = Cdao.getById(cicloNombre, Ciclo.class);
-                tutor.setCiclo(ciclo);
-            }
+            Date date = new Date();
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date fecha = formato.parse(formato.format(date));
 
-            tutor.setDni(dni);
-            tutor.setEmail(email);
-            tutor.setPassword(passwordCifrada);
-            tutor.setAvatar("avatar.png");
-            tutor.setRol(Usuario.Rol.TUTOR);
+            usuario.setNombre(nombre);
+            usuario.setApellidos(apellidos);
+            usuario.setUsuario(email);
+            usuario.setPassword(passwordCifrada);
+            usuario.setAvatar("avatar.png");
+            usuario.setFechaNacimiento(fecha);
+            usuario.setRol(Usuario.Rol.USER);
 
-            Tdao.insertOrUpdate(tutor);
-            url = "principal.jsp";
+            Udao.insertOrUpdate(usuario);
+            url = "index.jsp";
         }
+        /*
 
         if (request.getParameter("nuevoAlumno") != null) {
 
@@ -149,9 +136,9 @@ public class CrearDatos extends HttpServlet {
 
                 url = "JSP/nuevo/Nuevo_Notas.jsp";
             }
-        }
+        }*/
 
-        request.getRequestDispatcher(url).forward(request, response);*/
+        request.getRequestDispatcher(url).forward(request, response);
     }
     
     public static String getMD5(String input) {

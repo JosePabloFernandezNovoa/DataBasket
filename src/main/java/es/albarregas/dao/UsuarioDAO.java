@@ -19,7 +19,7 @@ public class UsuarioDAO extends GenericoDAO implements IUsuarioDAO {
     @Override
     public boolean comprobarCredenciales(String usuario, String password) {
         Boolean resultado=false;
-       String hql="SELECT u.email, u.password FROM Usuario AS u where u.email = :usuario and u.password = :password";
+       String hql="SELECT u.usuario, u.password FROM Usuario AS u where u.usuario = :usuario and u.password = :password";
         Query consulta=null;
         List<Object> credenciales=null;
         try {
@@ -44,7 +44,7 @@ public class UsuarioDAO extends GenericoDAO implements IUsuarioDAO {
 
     @Override
     public Object getRol(String usuario) {
-       String hql="SELECT u.rol FROM Usuario AS u where u.email = :usuario";
+       String hql="SELECT u.rol FROM Usuario AS u where u.usuario = :usuario";
         Query consulta=null;
         Object rol=null;
         try {
@@ -63,9 +63,9 @@ public class UsuarioDAO extends GenericoDAO implements IUsuarioDAO {
     }
 
     @Override
-    public boolean comprobarEmail(String email) {
+    public boolean comprobarUsuarioRepetido(String email) {
        Boolean resultado=false;
-       String hql="SELECT u.email FROM Usuario AS u where u.email = :email";
+       String hql="SELECT u.usuario FROM Usuario AS u where u.usuario = :email";
         Query consulta=null;
         List<Object> emails=null;
         try {
@@ -89,7 +89,7 @@ public class UsuarioDAO extends GenericoDAO implements IUsuarioDAO {
 
     @Override
     public Integer getIdUsuario(String email) {
-        String hql="SELECT u.idUsuario FROM Usuario AS u where u.email = :email";
+        String hql="SELECT u.idUsuario FROM Usuario AS u where u.usuario = :email";
         Query consulta=null;
         Integer id=null;
         try {
@@ -129,44 +129,6 @@ public class UsuarioDAO extends GenericoDAO implements IUsuarioDAO {
             endTransaction();
         }
         return resultado;
-    }
-
-    @Override
-    public List<Usuario> getProfesoresSinAlumnos() {
-         String hql="select distinct u.idUsuario, u.nombre, u.apellidos from Usuario as u inner join Tutor"
-                 + " as t inner join Alumno as a where u.idUsuario=t.idUsuario and t.ciclo<>a.ciclo";
-        Query consulta=null;
-        List<Usuario> profesores=null;
-        try {
-            startTransaction();
-            consulta=sesion.createQuery(hql);
-            profesores=(List<Usuario>)consulta.list();
-        } catch (HibernateException he) {
-            handleException(he);
-        }finally{
-            endTransaction();
-        }
-        return profesores;
-    }
-    
-    @Override
-    public String getIdCicloUsuario(int idUsuario) {
-        String hql="SELECT a.ciclo.idCiclo FROM Alumno AS a where a.idUsuario = :id";
-        Query consulta=null;
-        String id=null;
-        try {
-            startTransaction();
-            consulta=sesion.createQuery(hql);
-            
-            consulta.setParameter("id", idUsuario);
-            
-            id= (String) consulta.uniqueResult();
-        } catch (HibernateException he) {
-            handleException(he);
-        }finally{
-            endTransaction();
-        }
-        return id;
     }
 
     @Override
@@ -232,5 +194,25 @@ public class UsuarioDAO extends GenericoDAO implements IUsuarioDAO {
             endTransaction();
         }
         return nombreApe;
+    }
+
+    @Override
+    public List<Usuario> getDatosUsuario(int id) {
+        String hql="SELECT u FROM Usuario AS u where u.idUsuario = :id";
+        Query consulta=null;
+        List<Usuario> datos=null;
+        try {
+            startTransaction();
+            consulta=sesion.createQuery(hql);
+            
+            consulta.setParameter("id", id);
+            
+            datos= (List<Usuario>) consulta.list();
+        } catch (HibernateException he) {
+            handleException(he);
+        }finally{
+            endTransaction();
+        }
+        return datos;
     }
 }

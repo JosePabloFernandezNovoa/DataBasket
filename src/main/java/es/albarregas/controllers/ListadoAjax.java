@@ -91,6 +91,15 @@ public class ListadoAjax extends HttpServlet {
             
         }
         
+        if (request.getParameter("jugador1") != null && request.getParameter("jugador2") != null) {
+            String idJugador1 = request.getParameter("jugador1");
+            String idJugador2 = request.getParameter("jugador2");
+            listadoEstadisticas = adaoEQ.getEstadisticas2Jugadores(Short.valueOf(idJugador1),Short.valueOf(idJugador2));
+            
+            arrayJSON = new JSONArray(listadoEstadisticas);
+            
+        }
+        
         /*if (request.getParameter("nif") != null) {
             String nif = request.getParameter("nif");
             boolean nifRepetido = false;

@@ -9,6 +9,7 @@ import es.albarregas.beans.Equipo;
 import es.albarregas.beans.Estadisticas;
 import es.albarregas.beans.Jugador;
 import es.albarregas.beans.Partido;
+import es.albarregas.beans.Usuario;
 import es.albarregas.dao.IEquipoDAO;
 import es.albarregas.daofactory.DAOFactory;
 import java.io.IOException;
@@ -54,6 +55,7 @@ public class Front extends HttpServlet {
         IUsuarioDAO adaoU = daof.getUsuarioDAO();
         IEquipoDAO adaoEQ = daof.getEquipoDAO();
 
+        List<Usuario> datosUsuario=null;
         List<Estadisticas> listaEstadisticas=null;
         List<Partido> listaPartidos = null;
         List<Equipo> listaEquipos = null;
@@ -199,29 +201,13 @@ public class Front extends HttpServlet {
                 request.setAttribute("listado", listaEstadisticas);
                 break;    
 
-            case "nuevoAlumno":
-                url = "JSP/nuevo/Nuevo_Alumno.jsp";
-                break;
-
-            case "nuevoNota":
-
-                String codigoCiclo = (String) request.getSession().getAttribute("idCiclo");
-                // listaAlumnos = adaoA.getAlumnosDeunCiclo(codigoCiclo);
-                //request.setAttribute("listadoAlumnos", listaAlumnos);
-
-                //listaModulos = adaoC.getModulosCiclo(codigoCiclo);
-                //request.setAttribute("listadoModulos", listaModulos);
-                //listaNotas = adaoC.getNotasCiclo(codigoCiclo);
-                // request.setAttribute("listadoNotas", listaNotas);
-                /*if(listaAlumnos.isEmpty() || listaNotas.isEmpty()){
-                    vacio=true;
-                }*/
-                break;
-            case "eliminarAlumnos":
-                String idCiclo = (String) request.getSession().getAttribute("idCiclo");
-                // listaAlumnos = adaoA.getAlumnosDeunCiclo(idCiclo);
-                // request.setAttribute("listado", listaAlumnos);
-
+            case "perfil":
+                int idUsuario = (int) request.getSession().getAttribute("idUser");
+                datosUsuario=adaoU.getDatosUsuario(idUsuario);
+                
+                url = "JSP/funcionesRol/perfil.jsp";
+                
+                request.setAttribute("listado", datosUsuario);
                 break;
 
         }
@@ -229,7 +215,7 @@ public class Front extends HttpServlet {
                 || request.getParameter("id").equals("nuevoNota") || request.getParameter("id").equals("modificarDatosProfesor")
                 || request.getParameter("id").equals("modificarDatosAlumno")
                 || (listaPartidos != null && !listaPartidos.isEmpty()) || (listaEquipos != null && !listaEquipos.isEmpty())
-                || (listaEstadisticas != null && !listaEstadisticas.isEmpty())) {
+                || (listaEstadisticas != null && !listaEstadisticas.isEmpty()) || (datosUsuario != null && !datosUsuario.isEmpty())) {
             switch (request.getParameter("id")) {
                 case "partidos":
                     url = "JSP/partidos.jsp";
@@ -263,32 +249,8 @@ public class Front extends HttpServlet {
                     url = "JSP/estadisticas/tapones.jsp";
                     break;      
 
-                case "alumnos":
-                    url = "JSP/listado/Notas_Alumnos.jsp";
-                    break;
-
-                case "nuevoNota":
-                    if (vacio == false) {
-                        url = "JSP/nuevo/Nuevo_Notas.jsp";
-                    } else {
-                        url = "JSP/errores/error.jsp";
-                    }
-                    break;
-
-                case "eliminarProfesor":
-                    url = "JSP/listado/Ver_Profesores_Eliminar.jsp";
-                    break;
-
-                case "eliminarAlumnos":
-                    url = "JSP/listado/Ver_AlumnosCiclo_Eliminar.jsp";
-                    break;
-
-                case "modificarDatosProfesor":
-                    url = "JSP/update/Actualizar_Datos_Tutor.jsp";
-                    break;
-
-                case "modificarDatosAlumno":
-                    url = "JSP/update/Actualizar_Datos_Alumno.jsp";
+                case "perfil":
+                    url = "JSP/funcionesRol/perfil.jsp";
                     break;
 
             }

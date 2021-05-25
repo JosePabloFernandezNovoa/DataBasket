@@ -1,6 +1,5 @@
 package es.albarregas.controllers;
 
-import es.albarregas.beans.Usuario;
 import es.albarregas.daofactory.DAOFactory;
 import java.io.IOException;
 
@@ -9,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import es.albarregas.dao.IGenericoDAO;
 import es.albarregas.dao.IUsuarioDAO;
 import org.json.JSONObject;
 
@@ -33,20 +31,17 @@ public class Ajax extends HttpServlet {
             throws ServletException, IOException {
         JSONObject objeto = new JSONObject();
         DAOFactory daof = DAOFactory.getDAOFactory();
-       // IGenericoDAO<Nota> Ndao = daof.getGenericoDAO();
         
-      // IUsuarioDAO adaoU = daof.getUsuarioDAO();
+        IUsuarioDAO adaoU = daof.getUsuarioDAO();
 
         Boolean operacion = false;
-
-       // Nota nota = new Nota();
         
         if (request.getParameter("email") != null) {
             String email = request.getParameter("email");
             boolean emailRepetido = false;
 
             //buscamos en la BD si el email esta ya registrado estaconsulta devuelve un listado
-            //operacion = adaoU.comprobarEmail(email);
+            operacion = adaoU.comprobarUsuarioRepetido(email);
 
             //si el listado contiene algo quiere decir que si esta repetido
             if (operacion == true) {
@@ -58,45 +53,11 @@ public class Ajax extends HttpServlet {
             objeto.put("verificacion", emailRepetido);
 
         }
-        
-        if (request.getParameter("nif") != null) {
-            String nif = request.getParameter("nif");
-            boolean nifRepetido = false;
-
-            //buscamos en la BD si el email esta ya registrado estaconsulta devuelve un listado
-            //operacion = adaoU.comprobarNif(nif);
-
-            //si el listado contiene algo quiere decir que si esta repetido
-            if (operacion == true) {
-                nifRepetido = true;
-            } else {
-                nifRepetido = false;
-            }
-            //devolvemos el resultado de la comrpbacion
-            objeto.put("verificacion", nifRepetido);
-
-        }
-        
-        if (request.getParameter("nota")!= null) {
-
-            int idNota = Integer.parseInt(request.getParameter("idNota"));
-            Byte notas = Byte.valueOf(request.getParameter("nota"));
-            
-            
-           // nota=Ndao.getById(idNota, Nota.class);
-            
-            ////nota.setNota(notas);
-           
-           // Ndao.insertOrUpdate(nota);
-
-            //objeto.put("verificacion", true);
-
-        }
-        /*
+       
        response.setContentType("application/json");
        response.getWriter().print(objeto);
 
-       */
+       
         
     }
 

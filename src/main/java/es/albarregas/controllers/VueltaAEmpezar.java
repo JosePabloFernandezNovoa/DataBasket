@@ -38,7 +38,6 @@ public class VueltaAEmpezar extends HttpServlet {
         
         request.getSession().removeAttribute("usuario");
         request.getSession().removeAttribute("rol");
-        request.getSession().removeAttribute("idCiclo");
         request.getSession().removeAttribute("user");
         request.getSession().removeAttribute("password");
         request.getSession().removeAttribute("nombreApellidos");

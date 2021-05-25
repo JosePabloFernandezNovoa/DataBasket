@@ -108,4 +108,24 @@ String hql = "SELECT e.jugador.nombre,e.jugador.equipo.nombre,e.jugador.equipo.l
         }
         return estadisticas;    
     }
+
+    @Override
+    public List<Estadisticas> getEstadisticas2Jugadores(Short id1, Short id2) {
+        String hql = "SELECT e FROM Estadisticas AS e WHERE e.jugador.idJugador=:id1 OR e.jugador.idJugador=:id2";
+        Query consulta = null;
+        List<Estadisticas> estadisticas = null;
+        try {
+            startTransaction();
+            consulta = sesion.createQuery(hql);
+            consulta.setParameter("id1", id1);
+            consulta.setParameter("id2", id2);
+
+            estadisticas = (List<Estadisticas>) consulta.list();
+        } catch (HibernateException he) {
+            handleException(he);
+        } finally {
+            endTransaction();
+        }
+        return estadisticas;   
+    }
 }
