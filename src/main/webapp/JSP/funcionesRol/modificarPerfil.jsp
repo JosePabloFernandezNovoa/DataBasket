@@ -29,6 +29,7 @@
         <link href="${pageContext.servletContext.contextPath}/css/tablas.css" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -55,39 +56,69 @@
         <section class="page-section" id="contact">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Partidos</h2>
-                    <h3 class="section-subheading text-muted">listado de partidos y su resultado.</h3>
+                    <h2 class="section-heading text-uppercase">Modificar Datos Usuario</h2>
+                    <h3 class="section-subheading text-muted">modificar tus datos.</h3>
                 </div>
-                    <div class="row align-items-stretch mb-5 tablaJugadores">
-                        
-                        <c:set var="listado" value="${requestScope.listado}"/>
-                        <table id="jugadores" class="display" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Local</th>
-                                    <th>Resultado</th>
-                                    <th>Visitante</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                               <c:forEach var="partido" items="${listado}"> 
-                                    <tr>
-                                        <td><img name="imagen" src="<c:url value='/imagenes/logos/${partido.equipoLocal.logotipo}'/>" width="60" height="60">&nbsp;&nbsp;${partido.equipoLocal.nombre}</td>
-                                        <td>${partido.puntosLocal}-${partido.puntosVisitante}</td>
-                                        <td><img name="imagen" src="<c:url value='/imagenes/logos/${partido.equipoVisitante.logotipo}'/>" width="60" height="60">&nbsp;&nbsp;${partido.equipoVisitante.nombre}</td>
-                                    </tr>
-                                 </c:forEach>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>Local</th>
-                                    <th>Resultado</th>
-                                    <th>Visitante</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                       
+                <div class="contenedor">
+                    <div class="form-group">
+
+                        <c:set var="errorPeso" value="${requestScope.errorPeso}"/>
+                        <c:if test="${errorPeso==true}">
+                            <script src="${pageContext.servletContext.contextPath}/js/notificacionPesoImg.js"></script>
+                        </c:if>  
+
+
+                        <c:set var="errorFormato" value="${requestScope.errorFormato}"/>
+                        <c:if test="${errorFormato==true}">
+                            <script src="${pageContext.servletContext.contextPath}/js/notificacionFormato.js"></script>
+                        </c:if> 
+
+                        <form action="modificarU" method="post" enctype="multipart/form-data">
+
+                            <label class="etiqueta" for="exampleFormControlFile1">Imagen (PNG O JPG < 200 Kb)</label>
+                            <input type="file" class="form-control-file" name="avatar" id="foto"><br>
+                            <div id="marcoFoto">
+                                <img id="vistaPrevia" name="imagen" src="<c:url value='/imagenes/avatares/${usuario.avatar}'/>" width="150" height="150"><br><br>
+                                <input type="hidden" name="avatarBD" value="<c:url value='/imagenes/avatares/${usuario.avatar}'/>">
+                                <input type="hidden" id="avatarForm" name="avatarForm" value="<c:url value='/imagenes/avatares/${usuario.avatar}'/>">
+                            </div>
+
+                            <label  class="etiqueta" for="campos">Usuario</label>
+                            <input class="form-control" type="text" name="email" id="email" value="<c:out value="${usuario.usuario}"/>" readonly=""><br>  
+
+                            <label class="etiqueta" for="campos">Password Actual</label>
+                            <input class="form-control password" type="password" name="password"><br>
+
+                            <div class="passConfirm">
+                                <label class="etiqueta" for="campos">Nueva Password</label>
+                                <input class="form-control pass1" type="password" name="pass1"><br>
+                                
+                                <label class="etiqueta" for="campos">Confirmar Password</label>
+                                <input class="form-control pass2" type="password" name="pass2"><br>
+                            </div>
+
+                            <label class="etiqueta" for="campos">Nombre</label>
+                            <input class="form-control" type="text" name="nombre" value="<c:out value="${usuario.nombre}"/>" maxlength="15" required="""><br>
+
+                            <label  class="etiqueta" for="campos">Apellidos</label>
+                            <input class="form-control" type="text" name="apellidos" value="<c:out value="${usuario.apellidos}"/>" maxlength="30" required=""><br>
+
+                            <label  class="etiqueta" for="campos">Teléfono</label>
+                            <c:if test="${usuario.telefono==null}">
+                                <input class="form-control" type="text" name="telefono" value="Sin teléfono" maxlength="30"><br>
+                            </c:if> 
+                            <c:if test="${usuario.telefono!=null}">
+                                <input class="form-control" type="text" name="telefono" value="<c:out value="${usuario.telefono}"/>" maxlength="30"><br>
+                            </c:if>
+
+                            <label class="etiqueta" for="campos">Fecha Nacimiento</label><br>
+                            <input type="date" name="fecha" id="fecha" value="${usuario.fechaNacimiento}" required=""><br><br>
+
+                            <input type="submit" value="Enviar" id="enviar" name="boton" class="btn btn-success"/>
+
+                        </form>   
                     </div>
+                </div> 
             </div>
         </section>
         <!-- Footer-->
@@ -117,6 +148,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
         <!-- Core theme JS-->
         <script src="${pageContext.servletContext.contextPath}/js/scripts.js"></script>
+
+        <script src="${pageContext.servletContext.contextPath}/js/vistaprevia.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/js/rutasImagenes.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/js/modificarPassword2.js"></script>
+        <!--Notificaciones-->
+        <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     </body>
 </html>
 

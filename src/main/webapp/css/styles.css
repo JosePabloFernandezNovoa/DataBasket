@@ -10119,7 +10119,7 @@ header.masthead {
   padding-bottom: 6rem;
   text-align: center;
   color: #fff;
-  background-image: url("../imagenes/portada.png");
+  background-image: url("../imagenes/portada1.png");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
@@ -10612,4 +10612,30 @@ select{
 }
 .etiqueta{
     color: white;
+}
+
+#marcoFoto{
+    background-color: white;
+    width: 150px;
+}
+
+.legales{
+    color: white;
+}
+
+.pregunta{
+    color: red;
+}
+
+.passConfirm{
+    display: none;
+}
+
+.botonPerfil{
+    background-color: #D92C0C ;
+    color: white;
+}
+
+.botonPerfil:hover{
+       background-color: #e6b301;
 }

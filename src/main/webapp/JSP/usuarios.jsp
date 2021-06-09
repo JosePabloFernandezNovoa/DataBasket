@@ -1,6 +1,6 @@
 <%-- 
-    Document   : equipos
-    Created on : 21-abr-2021, 11:41:50
+    Document   : partidos
+    Created on : 20-abr-2021, 17:00:06
     Author     : Sammy Guergachi <sguergachi at gmail.com>
 --%>
 
@@ -14,7 +14,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Equipos</title>
+        <title>Usuarios</title>
         <link rel="icon" type="image/x-icon" href="${pageContext.servletContext.contextPath}/assets/img/favicon.ico" />
         <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/dataTables.min.css">
         <link href="${pageContext.servletContext.contextPath}/js/jquery.dataTables.min.js">
@@ -25,13 +25,11 @@
         <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        
+        <link href="${pageContext.servletContext.contextPath}/css/styles.css" rel="stylesheet" />
         <link href="${pageContext.servletContext.contextPath}/css/tablas.css" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
         <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/themify-icons.css">
-        <link href="${pageContext.servletContext.contextPath}/css/styles.css" rel="stylesheet" />
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -74,72 +72,36 @@
         <section class="page-section" id="contact">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Equipo</h2>
-                    <h3 class="section-subheading text-muted">selecciona un equipo a mostrar.</h3>
+                    <h2 class="section-heading text-uppercase">Listado Usuarios</h2>
+                    <h3 class="section-subheading text-muted">listado de usuarios registrados en la aplicación.</h3>
                 </div>
-
-                <c:set var="error" value="${requestScope.error}"/>
-                <c:if test="${error==true}">
-                    <script src="${pageContext.servletContext.contextPath}/js/notificacion.js"></script>
-                    <script src="${pageContext.servletContext.contextPath}/js/ocultarTabla.js"></script>
-                </c:if>  
-
-                <div class="datosEquipo col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <form action="listar" method="post">    
-
-                        <label for="campos" class="label">Equipo</label>
-                        <select class="form-select" name="equipos">
-                            <c:forEach var="equipo" items="${requestScope.listado}"> 
-                                <option value="${equipo.idEquipo}">${equipo.nombre}</option>
-                            </c:forEach>
-                        </select>
-
-
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <button type="submit" value="Buscar" id="buscar" name="datosEquipoJugador" class="btn btn-warning">Buscar</button>
-                </div>    
-                <div id="infoEquipo">
-                    <c:forEach var="equipo" items="${requestScope.listadoEquipo}"> 
-                        <h2 id="nombreEquipo">${equipo.nombre}</h2><br>
-                        <img name="imagen" src="<c:url value='/imagenes/logos/${equipo.logotipo}'/>" width="200" height="200"><br>
-                        <h4><button type="button" class="btn btn-info info"><i class="fas fa-info"></i></button>&nbsp;
-                            Pulsa para conocer mas sobre los ${equipo.nombre}</h4>
-                        </c:forEach>
-
-                </div>
-
-
-
-                <div class="tablaJugadores">
-                    <table id="jugadores" class="display" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Info</th>
-                                <th>Nombre</th>
-                            </tr>
-                        </thead>
-                        <tbody>  
-                            <c:forEach var="jugador" items="${requestScope.listadoJugadores}"> 
+                    <div class="row align-items-stretch mb-5 tablaRebotes">
+                        
+                        <c:set var="listado" value="${requestScope.listado}"/>
+                        <table id="jugadores" class="display rebotes" style="width:100%">
+                            <thead>
                                 <tr>
-                                    <td>
-                                        <button type="button" class="btn btn-info infoJ"><i class="fas fa-info"></i></button>
-                                        <input type="hidden" name="idJugador" value="${jugador.idJugador}">
-                                    </td>
-                                    <td>${jugador.nombre}</td>
-                                </tr>    
-                            </c:forEach>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Info</th>
-                                <th>Nombre</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    </form>    
-                </div>
-
+                                    <th>Usuario</th>
+                                    <th>Nombre</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               <c:forEach var="usuarios" items="${listado}"> 
+                                    <tr>
+                                        <td>${usuarios.usuario}</td>
+                                        <td>${usuarios.nombre} ${usuarios.apellidos}</td>
+                                    </tr>
+                                 </c:forEach>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Usuario</th>
+                                    <th>Nombre</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                       
+                    </div>
             </div>
         </section>
         <!-- Footer-->
@@ -158,57 +120,6 @@
                 </div>
             </div>
         </footer>
-        
-        <div class="modal fade informacionEquipo" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Información del equipo</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-                    </div>
-                    <div class="modal-body">
-                        <c:forEach var="equipo" items="${requestScope.listadoEquipo}"> 
-                            <div id="listaEquipo">
-                                <h2>${equipo.nombre}</h2><br>
-                                <img name="imagen" src="<c:url value='/imagenes/logos/${equipo.logotipo}'/>" width="150" height="150"><br><br>
-                            </div>
-                            <ul>
-                                <li><h4><strong>Ciudad :</strong> ${equipo.ciudad}</h4></li>
-                                <li><h4><strong>Conferencia :</strong> ${equipo.conferencia}</h4></li>
-                                <li><h4><strong>División :</strong> ${equipo.division}</h4></li>
-                                <li><h4><strong>Entrenador :</strong> ${equipo.entrenador}</h4></li>
-                                <li><h4><strong>Mascota :</strong>
-                                            <c:if test="${equipo.mascota!='NULL'}">
-                                                ${equipo.mascota}
-                                            </c:if>  
-                                            <c:if test="${equipo.mascota=='NULL'}">
-                                            Sin mascota
-                                        </c:if></h4></li>
-
-                            </ul>
-                        </c:forEach>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="modal fade informacionJugador" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Información del Jugador</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body datosJug">
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
         <c:set var="rol" value="${sessionScope.rol}"/>  
         <c:choose>
             <c:when test="${rol=='ADMIN'}">
@@ -229,11 +140,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
         <!-- Core theme JS-->
         <script src="${pageContext.servletContext.contextPath}/js/scripts.js"></script>
-        <script src="${pageContext.servletContext.contextPath}/js/equipo.js"></script>
-        <script src="${pageContext.servletContext.contextPath}/js/infoJugador.js"></script>
-        <!-- Notificaciones-->
-        <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     </body>
 </html>
 

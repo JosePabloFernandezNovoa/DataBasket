@@ -29,6 +29,7 @@
         <link href="${pageContext.servletContext.contextPath}/css/tablas.css" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -55,37 +56,64 @@
         <section class="page-section" id="contact">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Perfil Usuario</h2>
-                    <h3 class="section-subheading text-muted">listado de todos tus datos.</h3>
+                    <h2 class="section-heading text-uppercase">Nuevo Equipo</h2>
+                    <h3 class="section-subheading text-muted">introduce los datos del equipo.</h3>
                 </div>
                 <div class="contenedor">
                     <div class="form-group">
 
-                        <c:forEach var="perfil" items="${listado}">   
+                        <c:set var="errorPeso" value="${requestScope.errorPeso}"/>
+                        <c:if test="${errorPeso==true}">
+                            <script src="${pageContext.servletContext.contextPath}/js/notificacionPesoImg.js"></script>
+                        </c:if>  
+
+
+                        <c:set var="errorFormato" value="${requestScope.errorFormato}"/>
+                        <c:if test="${errorFormato==true}">
+                            <script src="${pageContext.servletContext.contextPath}/js/notificacionFormato.js"></script>
+                        </c:if> 
+
+                        <form action="nuevoEquipo" method="post" enctype="multipart/form-data">
+
+                            <label class="etiqueta" for="exampleFormControlFile1">Imagen (PNG O JPG < 200 Kb)</label>
+                            <input type="file" class="form-control-file" name="avatar" id="foto"><br>
                             <div id="marcoFoto">
-                            <img id="vistaPrevia" name="imagen" src="<c:url value='/imagenes/avatares/${perfil.avatar}'/>" width="150" height="150"><br><br>
+                                <img id="vistaPrevia" name="imagen" src="" width="150" height="150"><br><br>
                             </div>
+
+                            <label  class="etiqueta" for="campos">Nombre</label>
+                            <input class="form-control" type="text" name="nombre" maxlength="20" placeholder="Nets" required=""><br>  
+
+                            <label class="etiqueta" for="campos">Ciudad</label>
+                            <input class="form-control" type="text" name="ciudad" placeholder="Brooklyn" maxlength="20" required=""><br>
+
+                            <label  class="etiqueta" for="campos">Conferencia</label>
+                            <div class="form-check">
+                                <input class="form-check-radio" type="radio" name="conferencia" id="exampleRadios1" value="East">
+                                <label class="form-check-label etiqueta" class="etiqueta" for="exampleRadios1">Este</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-radio" type="radio" name="conferencia" id="exampleRadios2" value="West" checked="">
+                                <label class="form-check-label etiqueta" for="exampleRadios2">Oeste</label>
+                            </div><br>
+
+                            <label for="campos" class="label etiqueta">Division</label>
+                            <select class="form-select division" name="division" aria-label="Default select example">
+                            <option value="Central" selected="">Central</option>
+                                <option value="Pacifica">Pacifica</option>
+                                <option value="Atlantica">Atlantica</option>
+                                <option value="Sudeste">Sudeste</option>
+                        </select> <br>
                             
-                            <label  class="etiqueta" for="campos">Usuario</label>
-                            <input class="form-control" type="text" name="email" id="email" value="<c:out value="${perfil.usuario}"/>" readonly=""><br>  
+                            <label  class="etiqueta" for="campos">Entrenador</label>
+                            <input class="form-control" type="text" name="entrenador" placeholder="K.Hart" maxlength="40" required=""><br>
 
-                            <label class="etiqueta" for="campos">Nombre</label>
-                            <input class="form-control" type="text" name="nombre" value="<c:out value="${perfil.nombre}"/>" maxlength="15" readonly=""><br>
+                            <label  class="etiqueta" for="campos">Mascota</label>
+                            <input class="form-control" type="text" name="mascota" maxlength="20" placeholder="Ninguna" required=""><br>
 
-                            <label  class="etiqueta" for="campos">Apellidos</label>
-                            <input class="form-control" type="text" name="apellidos" value="<c:out value="${perfil.apellidos}"/>" maxlength="30" readonly=""><br>
+                            <input type="submit" value="Enviar" id="enviar" name="boton" class="btn btn-success"/>
 
-                            <label  class="etiqueta" for="campos">Teléfono</label>
-                            <c:if test="${perfil.telefono==null}">
-                                <input class="form-control" type="text" name="telefono" value="Sin teléfono" maxlength="30" readonly=""><br>
-                            </c:if> 
-                            <c:if test="${perfil.telefono!=null}">
-                                <input class="form-control" type="text" name="telefono" value="<c:out value="${perfil.telefono}"/>" maxlength="30" readonly=""><br>
-                            </c:if>
-
-                            <label class="etiqueta" for="campos">Fecha Nacimiento</label><br>
-                            <input class="form-control" type="text" name="fechaNacimineto" value="<c:out value="${perfil.fechaNacimiento}"/>" maxlength="30" readonly=""><br>
-                        </c:forEach>
+                        </form>   
                     </div>
                 </div> 
             </div>
@@ -117,6 +145,11 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
         <!-- Core theme JS-->
         <script src="${pageContext.servletContext.contextPath}/js/scripts.js"></script>
+
+        <script src="${pageContext.servletContext.contextPath}/js/vistaprevia.js"></script>
+        <!--Notificaciones-->
+        <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     </body>
 </html>
 

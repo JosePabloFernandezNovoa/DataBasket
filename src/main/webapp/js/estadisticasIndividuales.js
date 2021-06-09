@@ -9,12 +9,13 @@ $(function () {
         }
 
     });
-    
+
     $('.jugadores').on('change', function () {
         const  option = $(".jugadores option:selected").val();
         //comprobamos que la eleccion del usuario no es la de por defecto
         if (option != 0) {
             $('.informacion').children().remove();
+            $('.imagen').children().remove();
             $('.tabla').children().remove();
             $('.graficoPuntos').children().remove();
             $('.graficoAsistencias').children().remove();
@@ -60,8 +61,8 @@ function jugadores(option) {
  */
 function listaJugadores(data) {
     let opciones;
-    
-    
+
+
     for (let i = 0; i < data.length; i++) {
         opciones += `<option value="${data[i].idJugador}">${data[i].nombre}</option>`;
     }
@@ -98,84 +99,132 @@ function listarEstadisticas(option) {
 }
 
 function cargarDatos(datos) {
-  let nombreJugador=datos[0].jugador.nombre;  
-    
-  let puntosGrafico=[];
-  let puntosTotales=0;
-  let mediaPuntos=0;
+    let nombreJugador = datos[0].jugador.nombre;
 
-  let asistenciasGrafico=[];
-  let asistenciasTotales=0;
-  let mediaAsistencias=0;
-  
-  let rebotesGrafico=[];
-  let rebotesTotales=0;
-  let mediaRebotes=0;
+    let puntosGrafico = [];
+    let puntosTotales = 0;
+    let mediaPuntos = 0;
 
-  let taponesGrafico=[];
-  let taponesTotales=0;
-  let mediaTapones=0;
+    let asistenciasGrafico = [];
+    let asistenciasTotales = 0;
+    let mediaAsistencias = 0;
 
-  let partidos=[];
+    let rebotesGrafico = [];
+    let rebotesTotales = 0;
+    let mediaRebotes = 0;
 
-  let medias='';
-  let totales='';
+    let taponesGrafico = [];
+    let taponesTotales = 0;
+    let mediaTapones = 0;
 
-  for (let i = 0; i < datos.length; i++) {
-    /*******PARTIDOS**********/
-    let equipoLocal = $(datos[i].partido.equipoLocal).attr('nombre');
-    let equipoVisitante= $(datos[i].partido.equipoVisitante).attr('nombre');
-    let p=`${equipoLocal}-${equipoVisitante}`;
-    partidos.push(p);
-  }
+    let partidos = [];
 
-  
-  /******************DATOS******************/
-  for (let i = 0; i < datos.length; i++) {
-    /*******PUNTOS PARTIDO**********/
-    let puntos = $(datos[i]).attr('puntosPartido');
-    puntosGrafico.push(puntos);
-    mediaPuntos+=$(datos[i]).attr('puntosPartido');
-    puntosTotales+=$(datos[i]).attr('puntosPartido');
-    /*****************ASISTENCIAS PARTIDO**************/
-    let asistencias = $(datos[i]).attr('asistenciasPartido');
-    asistenciasGrafico.push(asistencias);
-    mediaAsistencias+=$(datos[i]).attr('asistenciasPartido');
-    asistenciasTotales+=$(datos[i]).attr('asistenciasPartido');
-    /*****************REBOTES PARTIDO**************/
-    let rebotes = $(datos[i]).attr('rebotesPartido');
-    rebotesGrafico.push(rebotes);
-    mediaRebotes+=$(datos[i]).attr('rebotesPartido');
-    rebotesTotales+=$(datos[i]).attr('rebotesPartido');
-    /*****************TAPONES PARTIDO**************/
-    let tapones=$(datos[i]).attr('taponesPartido');
-    taponesGrafico.push(tapones);
-    mediaTapones+=$(datos[i]).attr('taponesPartido');
-    taponesTotales+=$(datos[i]).attr('taponesPartido');
-  }
+    let medias = '';
+    let totales = '';
 
-  /**********MEDIAS******************/
-  mediaPuntos=mediaPuntos/datos.length;
-  mediaAsistencias=mediaAsistencias/datos.length;
-  mediaRebotes=mediaRebotes/datos.length;
-  mediaTapones=mediaTapones/datos.length;
+    let triplesDobles = 0;
+    let doblesDobles = 0;
 
-  medias=`<tr><td class="table-danger">${mediaPuntos.toFixed(2)}</td><td class="table-success">${mediaAsistencias.toFixed(2)}</td><td class="table-warning">${mediaRebotes.toFixed(2)}</td><td class="table-info">${mediaTapones.toFixed(2)}</td></tr>`;
-  
-  totales=`<tr><td class="table-danger">${puntosTotales}</td><td class="table-success">${asistenciasTotales}</td><td class="table-warning">${rebotesTotales}</td><td class="table-info">${taponesTotales}</td></tr>`;
+    let triplesDoblesTotales = 0;
+    let doblesDoblesTotales = 0;
 
-  /*********************CONSTRUCCION GRÁFICOS********************/
-  graficoPuntos(partidos, puntosGrafico, nombreJugador);
-  graficoAsistencias(partidos, asistenciasGrafico, nombreJugador);
-  graficoRebotes(partidos, rebotesGrafico, nombreJugador);
-  graficoTapones(partidos, taponesGrafico, nombreJugador);
-  tablaMedias(medias);
+    for (let i = 0; i < datos.length; i++) {
+        /*******PARTIDOS**********/
+        let equipoLocal = $(datos[i].partido.equipoLocal).attr('nombre');
+        let equipoVisitante = $(datos[i].partido.equipoVisitante).attr('nombre');
+        let p = `${equipoLocal}-${equipoVisitante}`;
+        partidos.push(p);
+    }
+
+
+    /******************DATOS******************/
+    for (let i = 0; i < datos.length; i++) {
+        /*******PUNTOS PARTIDO**********/
+        let puntos = $(datos[i]).attr('puntosPartido');
+        puntosGrafico.push(puntos);
+        mediaPuntos += $(datos[i]).attr('puntosPartido');
+        puntosTotales += $(datos[i]).attr('puntosPartido');
+        /*****************ASISTENCIAS PARTIDO**************/
+        let asistencias = $(datos[i]).attr('asistenciasPartido');
+        asistenciasGrafico.push(asistencias);
+        mediaAsistencias += $(datos[i]).attr('asistenciasPartido');
+        asistenciasTotales += $(datos[i]).attr('asistenciasPartido');
+        /*****************REBOTES PARTIDO**************/
+        let rebotes = $(datos[i]).attr('rebotesPartido');
+        rebotesGrafico.push(rebotes);
+        mediaRebotes += $(datos[i]).attr('rebotesPartido');
+        rebotesTotales += $(datos[i]).attr('rebotesPartido');
+        /*****************TAPONES PARTIDO**************/
+        let tapones = $(datos[i]).attr('taponesPartido');
+        taponesGrafico.push(tapones);
+        mediaTapones += $(datos[i]).attr('taponesPartido');
+        taponesTotales += $(datos[i]).attr('taponesPartido');
+
+        if (puntos >= 10) {
+            
+            triplesDobles += 1;
+            doblesDobles += 1;
+            
+        } 
+        
+        if (asistencias >= 10) {
+            
+            triplesDobles += 1;
+            doblesDobles += 1;
+            
+        } 
+        
+        if (rebotes >= 10) {
+            
+            triplesDobles += 1;
+            doblesDobles += 1;
+            
+        } 
+        
+        if (tapones >= 10) {
+            
+            triplesDobles += 1;
+            doblesDobles += 1;
+        }
+
+        console.log("TripleDoble "+triplesDobles);
+        console.log("DobleDoble "+doblesDobles);
+        if (triplesDobles >= 3) {
+            triplesDoblesTotales += 1;
+            
+        }else if (doblesDobles == 2) {
+            doblesDoblesTotales += 1;
+        }
+        console.log("TripleDoble--Total "+triplesDoblesTotales);
+        console.log("DobleDoble--Total "+doblesDoblesTotales);
+        console.log("------------------");
+        
+        triplesDobles=0;
+        doblesDobles=0;
+    }
+
+    /**********MEDIAS******************/
+    mediaPuntos = mediaPuntos / datos.length;
+    mediaAsistencias = mediaAsistencias / datos.length;
+    mediaRebotes = mediaRebotes / datos.length;
+    mediaTapones = mediaTapones / datos.length;
+
+    medias = `<tr><td class="table-danger">${mediaPuntos.toFixed(2)}</td><td class="table-success">${mediaAsistencias.toFixed(2)}</td><td class="table-warning">${mediaRebotes.toFixed(2)}</td><td class="table-info">${mediaTapones.toFixed(2)}</td></tr>`;
+
+    totales = `<tr><td class="table-danger">${puntosTotales}</td><td class="table-success">${asistenciasTotales}</td><td class="table-warning">${rebotesTotales}</td><td class="table-info">${taponesTotales}</td><td class="table-secondary">${triplesDoblesTotales}</td><td class="table-light">${doblesDoblesTotales}</td></tr>`;
+
+    /*********************CONSTRUCCION GRÁFICOS********************/
+    graficoPuntos(partidos, puntosGrafico, nombreJugador);
+    graficoAsistencias(partidos, asistenciasGrafico, nombreJugador);
+    graficoRebotes(partidos, rebotesGrafico, nombreJugador);
+    graficoTapones(partidos, taponesGrafico, nombreJugador);
+    tablaMedias(medias);
     tablaTotal(totales);
 }
 
-function tablaMedias(medias){
+function tablaMedias(medias) {
 
-  let tablaMedias=`<h4 class="tituloGraf">Media de Datos</h4>
+    let tablaMedias = `<h4 class="tituloGraf">Media de Datos</h4>
     <table class="table">
       <thead class="thead-dark">
         <tr>
@@ -188,15 +237,15 @@ function tablaMedias(medias){
       <tbody>
         ${medias}
       </tbody>
-    </table>`;   
+    </table>`;
 
     $('.tabla').append(tablaMedias);
 
 }
 
-function tablaTotal(total){
+function tablaTotal(total) {
 
-  let tablaTotales=`<h4 class="tituloGraf">Datos Totales</h4>
+    let tablaTotales = `<h4 class="tituloGraf">Datos Totales</h4>
     <table class="table">
       <thead class="thead-dark">
         <tr>
@@ -204,192 +253,194 @@ function tablaTotal(total){
           <th scope="col">Asistencias</th>
           <th scope="col">Rebotes</th>
           <th scope="col">Tapones</th>
+          <th scope="col">Triples-Dobles</th>
+          <th scope="col">Dobles-Dobles</th>
         </tr>
       </thead>
       <tbody>
         ${total}
       </tbody>
-    </table>`;   
+    </table>`;
 
     $('.tabla').append(tablaTotales);
 
 }
 
-function info(data){
-   let imagen=`<img name="imagen"  id="imagen" src="/DataBasket/imagenes/avatares/${data[0].jugador.foto}" width="300" height="200">`;
-  $('.imagen').append(imagen);
-    
-  let info=`
+function info(data) {
+    let imagen = `<img name="imagen"  id="imagen" src="/DataBasket/imagenes/avatares/${data[0].jugador.foto}" width="300" height="200">`;
+    $('.imagen').append(imagen);
+
+    let info = `
     <div class="infoEstadisticas"><h4>Nombre: ${data[0].jugador.nombre}<h4></div>
     <div class="infoEstadisticas"><h4>Equipo: ${data[0].jugador.equipo.nombre}</h4></div>
     <div class="infoEstadisticas"><h4>Posición: ${data[0].jugador.posicion}</h4></div>
-    <div class="infoEstadisticas"><h4>Nacionalidad: ${data[0].jugador.nacionalidad}</h4></div>`;   
+    <div class="infoEstadisticas"><h4>Nacionalidad: ${data[0].jugador.nacionalidad}</h4></div>`;
 
     $('.informacion').append(info);
 
 }
 function graficoPuntos(partidos, puntosGrafico, nombreJugador) {
-  
-  let graficoPuntos=`<canvas id="puntos"></canvas>`;
-  let tituloGrafico=`<h4 class="tituloGraf">Puntos Partido</h4>`;
-  $('.graficoPuntos').append(tituloGrafico);
-  $('.graficoPuntos').append(graficoPuntos);
 
-  let puntos = $("#puntos");
-  Chart.defaults.global.defaultFontFamily = "Lato";
-  Chart.defaults.global.defaultFontSize = 18;
+    let graficoPuntos = `<canvas id="puntos"></canvas>`;
+    let tituloGrafico = `<h4 class="tituloGraf">Puntos Partido</h4>`;
+    $('.graficoPuntos').append(tituloGrafico);
+    $('.graficoPuntos').append(graficoPuntos);
 
-  let data = {
-      label: `${nombreJugador}`,
-      data: puntosGrafico,
-      lineTension: 0,
-      fill: false,
-      borderColor: 'red',
-      pointBackgroundColor: 'red'
+    let puntos = $("#puntos");
+    Chart.defaults.global.defaultFontFamily = "Lato";
+    Chart.defaults.global.defaultFontSize = 18;
+
+    let data = {
+        label: `${nombreJugador}`,
+        data: puntosGrafico,
+        lineTension: 0,
+        fill: false,
+        borderColor: 'red',
+        pointBackgroundColor: 'red'
     };
 
-  let speedData = {
-    labels: partidos,
-    datasets: [data]
-  };
+    let speedData = {
+        labels: partidos,
+        datasets: [data]
+    };
 
-  let chartOptions = {
-    legend: {
-      display: true,
-      position: 'top',
-      labels: {
-        boxWidth: 50,
-        fontColor: 'black'
-      }
-    }
-  };
+    let chartOptions = {
+        legend: {
+            display: true,
+            position: 'top',
+            labels: {
+                boxWidth: 50,
+                fontColor: 'black'
+            }
+        }
+    };
 
     let lineChart = new Chart(puntos, {
-    type: 'line',
-    data: speedData,
-    options: chartOptions
-  });
+        type: 'line',
+        data: speedData,
+        options: chartOptions
+    });
 
 }
 
 function graficoAsistencias(partidos, asistenciasGrafico, nombreJugador) {
-  
-  let graficoAsistencias=`<canvas id="asistencias"></canvas>`;
-  let tituloGrafico=`<h4 class="tituloGraf">Asistencias Partido</h4>`;
-  $('.graficoAsistencias').append(tituloGrafico);
-  $('.graficoAsistencias').append(graficoAsistencias);
 
-  let asistencias = $("#asistencias");
-  Chart.defaults.global.defaultFontFamily = "Lato";
-  Chart.defaults.global.defaultFontSize = 18;
+    let graficoAsistencias = `<canvas id="asistencias"></canvas>`;
+    let tituloGrafico = `<h4 class="tituloGraf">Asistencias Partido</h4>`;
+    $('.graficoAsistencias').append(tituloGrafico);
+    $('.graficoAsistencias').append(graficoAsistencias);
 
-  let data = {
-      label: `${nombreJugador}`,
-      data: asistenciasGrafico,
-      fill: false,
-      borderColor: 'green',
-      pointBackgroundColor: 'green',
+    let asistencias = $("#asistencias");
+    Chart.defaults.global.defaultFontFamily = "Lato";
+    Chart.defaults.global.defaultFontSize = 18;
+
+    let data = {
+        label: `${nombreJugador}`,
+        data: asistenciasGrafico,
+        fill: false,
+        borderColor: 'green',
+        pointBackgroundColor: 'green',
     };
 
-  let speedData = {
-    labels: partidos,
-    datasets: [data]
-  };
+    let speedData = {
+        labels: partidos,
+        datasets: [data]
+    };
 
-  let chartOptions = {
-    legend: {
-      display: true,
-      position: 'top',
-      labels: {
-        boxWidth: 50,
-        fontColor: 'black'
-      }
-    }
-  };
+    let chartOptions = {
+        legend: {
+            display: true,
+            position: 'top',
+            labels: {
+                boxWidth: 50,
+                fontColor: 'black'
+            }
+        }
+    };
 
-  let lineChart = new Chart(asistencias, {
-    type: 'line',
-    data: speedData,
-    options: chartOptions
-  });
+    let lineChart = new Chart(asistencias, {
+        type: 'line',
+        data: speedData,
+        options: chartOptions
+    });
 
 }
 
 function graficoRebotes(partidos, rebotesGrafico, nombreJugador) {
 
-  let graficoRebotes=`<canvas id="rebotes"></canvas>`;
-  let tituloGrafico=`<h4 class="tituloGraf">Rebotes Partido</h4>`;
-  $('.graficoRebotes').append(tituloGrafico);
-  $('.graficoRebotes').append(graficoRebotes);
+    let graficoRebotes = `<canvas id="rebotes"></canvas>`;
+    let tituloGrafico = `<h4 class="tituloGraf">Rebotes Partido</h4>`;
+    $('.graficoRebotes').append(tituloGrafico);
+    $('.graficoRebotes').append(graficoRebotes);
 
-  Chart.defaults.global.defaultFontFamily = "Lato";
-  Chart.defaults.global.defaultFontSize = 18;
-  Chart.defaults.global.defaultFontColor = 'blue';
+    Chart.defaults.global.defaultFontFamily = "Lato";
+    Chart.defaults.global.defaultFontSize = 18;
+    Chart.defaults.global.defaultFontColor = 'blue';
 
-  let color = Chart.helpers.color;
+    let color = Chart.helpers.color;
 
-  let data = {
-    label: `${nombreJugador}`,
-    backgroundColor: color('brown').alpha(0.5).rgbString(),
-    borderColor: 'brown',
-    data:rebotesGrafico,
-    fill: true,
+    let data = {
+        label: `${nombreJugador}`,
+        backgroundColor: color('brown').alpha(0.5).rgbString(),
+        borderColor: 'brown',
+        data: rebotesGrafico,
+        fill: true,
     };
 
-  let speedData = {
-    labels: partidos,
-    datasets: [data]
-  };
+    let speedData = {
+        labels: partidos,
+        datasets: [data]
+    };
 
-  let optionsGrafico = {
-      responsive: true,
-      plugins: {
-        legend: {
-          position: 'bottom'
+    let optionsGrafico = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'bottom'
+            },
+            title: {
+                display: true,
+                text: `${nombreJugador}`
+            }
         },
-        title: {
-          display: true,
-          text: `${nombreJugador}`
-        }
-      },
-  };
+    };
 
     let rebotes = $("#rebotes");
     let lineChart = new Chart(rebotes, {
-      type: 'line',
-      data: speedData,
-      options: optionsGrafico
+        type: 'line',
+        data: speedData,
+        options: optionsGrafico
     });
 
 }
 
 function graficoTapones(partidos, taponesGrafico, nombreJugador) {
 
-  let graficoTapones=`<canvas id="tapones"></canvas>`;
-  let tituloGrafico=`<h4 class="tituloGraf">Tapones partido</h4>`;
-  $('.graficoTapones').append(tituloGrafico);
-  $('.graficoTapones').append(graficoTapones);
+    let graficoTapones = `<canvas id="tapones"></canvas>`;
+    let tituloGrafico = `<h4 class="tituloGraf">Tapones partido</h4>`;
+    $('.graficoTapones').append(tituloGrafico);
+    $('.graficoTapones').append(graficoTapones);
 
-  Chart.defaults.global.defaultFontFamily = "Lato";
-  Chart.defaults.global.defaultFontSize = 18;
+    Chart.defaults.global.defaultFontFamily = "Lato";
+    Chart.defaults.global.defaultFontSize = 18;
 
-  var data = {
-    label: `${nombreJugador}`,
-    data: taponesGrafico,
-    backgroundColor: 'purple',
-    borderColor: 'black',
-    borderWidth: 0
-  };
+    var data = {
+        label: `${nombreJugador}`,
+        data: taponesGrafico,
+        backgroundColor: 'purple',
+        borderColor: 'black',
+        borderWidth: 0
+    };
 
-  var config = {
-    labels: partidos,
-    datasets: [data]
-  };
+    var config = {
+        labels: partidos,
+        datasets: [data]
+    };
 
 
-  let tapones = $("#tapones");
-  var barChart = new Chart(tapones, {
-    type: 'bar',
-    data: config
-  });
+    let tapones = $("#tapones");
+    var barChart = new Chart(tapones, {
+        type: 'bar',
+        data: config
+    });
 }

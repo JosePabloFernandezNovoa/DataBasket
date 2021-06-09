@@ -1,6 +1,7 @@
 $(function () {
     $('.selectJugadores').hide();
     $('.selectJugadores2').hide();
+    $('.equiposDos').hide();
     $('.equipos').on('change', function () {
         const  option = $(".equipos option:selected").val();
         //comprobamos que la eleccion del usuario no es la de por defecto
@@ -35,8 +36,17 @@ $(function () {
             $('.graficoRebotes').children().remove();
             $('.graficoTapones').children().remove();
             listarEstadisticas(option1, option2);
+            
         }
 
+    });
+    
+    $('.jugadores').on('change', function () {
+        const  option1 = $(".jugadores option:selected").val();
+        //comprobamos que la eleccion del usuario no es la de por defecto
+        if (option1 != 0) {
+            $('.equiposDos').show();   
+        }
     });
 
 });
@@ -189,6 +199,18 @@ function cargarDatos(datos) {
   let totalesJ1='';
   let mediasJ2='';
   let totalesJ2='';
+  
+  let triplesDoblesJ1 = 0;
+  let doblesDoblesJ1 = 0;
+
+  let triplesDoblesTotalesJ1 = 0;
+  let doblesDoblesTotalesJ1 = 0;
+  
+  let triplesDoblesJ2 = 0;
+  let doblesDoblesJ2 = 0;
+
+  let triplesDoblesTotalesJ2 = 0;
+  let doblesDoblesTotalesJ2 = 0;
 
   for (let i = 0; i < datos.length/2; i++) {
     let p=`Partido ${i+1}`;
@@ -218,6 +240,43 @@ function cargarDatos(datos) {
     taponesGraficoJ1.push(tapones);
     mediaTaponesJ1+=$(datos[i]).attr('taponesPartido');
     taponesTotalesJ1+=$(datos[i]).attr('taponesPartido');
+    
+    if (puntos >= 10) {
+            
+            triplesDoblesJ1 += 1;
+            doblesDoblesJ1 += 1;
+            
+        } 
+        
+        if (asistencias >= 10) {
+            
+            triplesDoblesJ1 += 1;
+            doblesDoblesJ1 += 1;
+            
+        } 
+        
+        if (rebotes >= 10) {
+            
+            triplesDoblesJ1 += 1;
+            doblesDoblesJ1 += 1;
+            
+        } 
+        
+        if (tapones >= 10) {
+            
+            triplesDoblesJ1 += 1;
+            doblesDoblesJ1 += 1;
+        }
+
+        if (triplesDoblesJ1 >= 3) {
+            triplesDoblesTotalesJ1 += 1;
+            
+        }else if (doblesDoblesJ1 == 2) {
+            doblesDoblesTotalesJ1 += 1;
+        }
+        
+        triplesDoblesJ1=0;
+        doblesDoblesJ1=0;
   }
   
   /******************DATOS J2******************/
@@ -242,6 +301,43 @@ function cargarDatos(datos) {
     taponesGraficoJ2.push(tapones);
     mediaTaponesJ2+=$(datos[i]).attr('taponesPartido');
     taponesTotalesJ2+=$(datos[i]).attr('taponesPartido');
+    
+    if (puntos >= 10) {
+            
+            triplesDoblesJ2 += 1;
+            doblesDoblesJ2 += 1;
+            
+        } 
+        
+        if (asistencias >= 10) {
+            
+            triplesDoblesJ2 += 1;
+            doblesDoblesJ2 += 1;
+            
+        } 
+        
+        if (rebotes >= 10) {
+            
+            triplesDoblesJ2 += 1;
+            doblesDoblesJ2 += 1;
+            
+        } 
+        
+        if (tapones >= 10) {
+            
+            triplesDoblesJ2 += 1;
+            doblesDoblesJ2 += 1;
+        }
+
+        if (triplesDoblesJ2 >= 3) {
+            triplesDoblesTotalesJ2 += 1;
+            
+        }else if (doblesDoblesJ2 == 2) {
+            doblesDoblesTotalesJ2 += 1;
+        }
+        
+        triplesDoblesJ2=0;
+        doblesDoblesJ2=0;
   }
 
   /**********MEDIAS J1******************/
@@ -259,8 +355,8 @@ function cargarDatos(datos) {
   mediasJ1=`<tr><td class="table-light">${nombreJugador1}</td><td class="table-danger">${mediaPuntosJ1.toFixed(2)}</td><td class="table-success">${mediaAsistenciasJ1.toFixed(2)}</td><td class="table-warning">${mediaRebotesJ1.toFixed(2)}</td><td class="table-info">${mediaTaponesJ1.toFixed(2)}</td></tr>`;
   mediasJ2=`<tr><td class="table-light">${nombreJugador2}</td><td class="table-danger">${mediaPuntosJ2.toFixed(2)}</td><td class="table-success">${mediaAsistenciasJ2.toFixed(2)}</td><td class="table-warning">${mediaRebotesJ2.toFixed(2)}</td><td class="table-info">${mediaTaponesJ2.toFixed(2)}</td></tr>`;
 
-  totalesJ1=`<tr><td class="table-light">${nombreJugador1}</td><td class="table-danger">${puntosTotalesJ1}</td><td class="table-success">${asistenciasTotalesJ1}</td><td class="table-warning">${rebotesTotalesJ1}</td><td class="table-info">${taponesTotalesJ1}</td></tr>`;
-  totalesJ2=`<tr><td class="table-light">${nombreJugador2}</td><td class="table-danger">${puntosTotalesJ2}</td><td class="table-success">${asistenciasTotalesJ2}</td><td class="table-warning">${rebotesTotalesJ2}</td><td class="table-info">${taponesTotalesJ2}</td></tr>`;
+  totalesJ1=`<tr><td class="table-light">${nombreJugador1}</td><td class="table-danger">${puntosTotalesJ1}</td><td class="table-success">${asistenciasTotalesJ1}</td><td class="table-warning">${rebotesTotalesJ1}</td><td class="table-info">${taponesTotalesJ1}</td><td class="table-secondary">${triplesDoblesTotalesJ1}</td><td class="table-light">${doblesDoblesTotalesJ1}</td></tr></tr>`;
+  totalesJ2=`<tr><td class="table-light">${nombreJugador2}</td><td class="table-danger">${puntosTotalesJ2}</td><td class="table-success">${asistenciasTotalesJ2}</td><td class="table-warning">${rebotesTotalesJ2}</td><td class="table-info">${taponesTotalesJ2}</td><td class="table-secondary">${triplesDoblesTotalesJ2}</td><td class="table-light">${doblesDoblesTotalesJ2}</td></tr></tr>`;
 
   /*********************CONSTRUCCION GRÁFICOS********************/
   graficoPuntos(partidos, puntosGraficoJ1, puntosGraficoJ2, nombreJugador1, nombreJugador2);
@@ -305,6 +401,8 @@ function tablaTotal(totalJ1, totalJ2){
           <th scope="col">Asistencias</th>
           <th scope="col">Rebotes</th>
           <th scope="col">Tapones</th>
+          <th scope="col">Triples-Dobles</th>
+          <th scope="col">Dobles-Dobles</th>
         </tr>
       </thead>
       <tbody>
