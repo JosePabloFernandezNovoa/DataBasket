@@ -12,6 +12,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+/**
+ * Clase Estadisticas
+ * @author Jose Pablo Fernández Novoa
+ */
 @Entity
 @Table(name="estadisticas")
 public class Estadisticas implements Serializable {
@@ -33,19 +37,19 @@ public class Estadisticas implements Serializable {
     private String temporada;
     
     @Column(name = "puntosPartido", nullable = false)
-    private byte puntosPartido;
+    private Short puntosPartido;
     
     @Column(name = "asistenciasPartido", nullable = false)
-    private byte asistenciasPartido;
+    private Short asistenciasPartido;
     
     @Column(name = "taponesPartido", nullable = false)
-    private byte taponesPartido;
+    private Short taponesPartido;
     
     @Column(name = "rebotesPartido", nullable = false)
-    private byte rebotesPartido;
+    private Short rebotesPartido;
     
     @Transient
-    private byte mediaEstadisticasPartido;  
+    private Short mediaEstadisticasPartido;  
 
     public Short getIdEstadistica() {
         return idEstadistica;
@@ -79,43 +83,43 @@ public class Estadisticas implements Serializable {
         this.temporada = temporada;
     }
 
-    public byte getPuntosPartido() {
+    public Short getPuntosPartido() {
         return puntosPartido;
     }
 
-    public void setPuntosPartido(byte puntosPartido) {
+    public void setPuntosPartido(Short puntosPartido) {
         this.puntosPartido = puntosPartido;
     }
 
-    public byte getAsistenciasPartido() {
+    public Short getAsistenciasPartido() {
         return asistenciasPartido;
     }
 
-    public void setAsistenciasPartido(byte asistenciasPartido) {
+    public void setAsistenciasPartido(Short asistenciasPartido) {
         this.asistenciasPartido = asistenciasPartido;
     }
 
-    public byte getTaponesPartido() {
+    public Short getTaponesPartido() {
         return taponesPartido;
     }
 
-    public void setTaponesPartido(byte taponesPartido) {
+    public void setTaponesPartido(Short taponesPartido) {
         this.taponesPartido = taponesPartido;
     }
 
-    public byte getRebotesPartido() {
+    public Short getRebotesPartido() {
         return rebotesPartido;
     }
 
-    public void setRebotesPartido(byte rebotesPartido) {
+    public void setRebotesPartido(Short rebotesPartido) {
         this.rebotesPartido = rebotesPartido;
     }
 
-    public byte getMediaEstadisticasPartido() {
+    public Short getMediaEstadisticasPartido() {
         return mediaEstadisticasPartido;
     }
 
-    public void setMediaEstadisticasPartido(byte mediaEstadisticasPartido) {
+    public void setMediaEstadisticasPartido(Short mediaEstadisticasPartido) {
         this.mediaEstadisticasPartido = mediaEstadisticasPartido;
     }
     

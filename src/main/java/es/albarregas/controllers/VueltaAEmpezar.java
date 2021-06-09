@@ -9,13 +9,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author jp-9
+ * Controlador que se utiliza para cerrar la sesion del usuario, eliminando
+ * todas la variable en sesion.
+ * @author Jose Pablo Fernández Novoa
  */
 @WebServlet(name = "VueltaAEmpezar", urlPatterns = {"/VueltaAEmpezar"})
 public class VueltaAEmpezar extends HttpServlet {
@@ -35,13 +37,16 @@ public class VueltaAEmpezar extends HttpServlet {
         * Eliminamos los atributos de sesion en los cuales guardamos las opciones de eliminacion y 
         * modificacion del cliente, de esta forma se resetean para que no ocurran errores
         */
+        Cookie cookie = null;
+        Cookie[] cookies = request.getCookies();
         
         request.getSession().removeAttribute("usuario");
         request.getSession().removeAttribute("rol");
         request.getSession().removeAttribute("user");
         request.getSession().removeAttribute("password");
-        request.getSession().removeAttribute("nombreApellidos");
+        request.getSession().removeAttribute("nombre");
         request.getSession().removeAttribute("email");
+        
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

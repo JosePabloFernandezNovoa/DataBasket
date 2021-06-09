@@ -215,4 +215,29 @@ public class UsuarioDAO extends GenericoDAO implements IUsuarioDAO {
         }
         return datos;
     }
+
+    @Override
+    public boolean comprobarPassword(String password, int id) {
+        Boolean resultado=false;
+       String hql="SELECT u.password FROM Usuario AS u where u.idUsuario = :id";
+        Query consulta=null;
+        String passResult=null;
+        try {
+            startTransaction();
+            consulta=sesion.createQuery(hql);
+            
+            consulta.setParameter("id", id);
+            
+            passResult=(String)consulta.uniqueResult();
+        
+            if(passResult.equals(password)){
+               resultado=true;
+            }
+        } catch (HibernateException he) {
+            handleException(he);
+        }finally{
+            endTransaction();
+        }
+        return resultado;
+    }
 }

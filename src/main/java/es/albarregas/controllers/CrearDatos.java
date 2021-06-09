@@ -22,21 +22,20 @@ import java.util.logging.Logger;
 
 
 /**
- *
- * @author Jesus
+ * Controlador crear nuevo usuario
+ * @author Jose Pablo Fernández Novoa
  */
 @WebServlet(name = "crear", urlPatterns = {"/crear"})
 public class CrearDatos extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     * @throws java.text.ParseException
+     * 
+     * @param request servelet request
+     * @param response servelet response
+     * @throws ServletException
+     * @throws IOException
+     * @throws ParseException
+     * @throws InvocationTargetException 
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException, InvocationTargetException {
@@ -47,6 +46,10 @@ public class CrearDatos extends HttpServlet {
      
         String url = null;
 
+        /**
+         * Creamos un nuevo usuario con todos sus datos
+         * obligatorios
+         */
         if (request.getParameter("nuevoUsuario") != null) {
 
             String nombre = request.getParameter("nombre");
@@ -70,73 +73,6 @@ public class CrearDatos extends HttpServlet {
             Udao.insertOrUpdate(usuario);
             url = "index.jsp";
         }
-        /*
-
-        if (request.getParameter("nuevoAlumno") != null) {
-
-            String dni = request.getParameter("dni");
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
-            Date fechaNacimiento = Date.valueOf(request.getParameter("fecha"));
-            String sexo = request.getParameter("genero");
-            String cicloNombre = request.getParameter("idCiclo");
-            String passwordCifrada=getMD5(password);
-            
-            alumno.setDni(dni);
-            alumno.setEmail(email);
-            alumno.setPassword(passwordCifrada);
-            alumno.setRol(Usuario.Rol.ALUMNO);
-            alumno.setAvatar("avatar.png");
-            alumno.setFechaNacimiento(fechaNacimiento);
-
-            if (sexo.equals("MUJER")) {
-                alumno.setGenero(Alumno.Genero.MUJER);
-            } else {
-                alumno.setGenero(Alumno.Genero.HOMBRE);
-            }
-
-            ciclo = Cdao.getById(cicloNombre, Ciclo.class);
-            alumno.setCiclo(ciclo);
-            
-            listaModulos=adaoA.getModulosAlumnoCiclo(cicloNombre);
-            
-            for (int i = 0; i < listaModulos.size(); i++) {
-                nota=new Nota();
-
-                nota.setAlumno(alumno);
-                nota.setModulo(listaModulos.get(i));
-                nota.setNota(Byte.valueOf("5"));
-                listaNotas.add(nota);
-            }
-            alumno.setNotas(listaNotas);
-            
-            Adao.insertOrUpdate(alumno);
-            url = "principal.jsp";
-        }
-
-        if (request.getParameter("visualizarModulos") != null) {
-            //recogemos las opciones escogidas
-            checks = request.getParameter("opcion");
-            //comprobamos si se lecciono alguna
-            if (checks == null) {
-                String idCiclo=(String) request.getSession().getAttribute("idCiclo");
-                listaAlumnos =  adaoA.getAlumnosDeunCiclo(idCiclo);
-                request.setAttribute("listado", listaAlumnos);
-
-                url = "JSP/listado/Ver_AlumnosCiclo.jsp";
-
-                request.setAttribute("error", true);
-            } else {
-
-                request.getSession().setAttribute("idAlumno", checks);
-
-                String idCiclo = (String) request.getSession().getAttribute("idCiclo");
-                listaModulos = adaoC.getModulosCiclo(idCiclo);
-                request.setAttribute("listado", listaModulos);
-
-                url = "JSP/nuevo/Nuevo_Notas.jsp";
-            }
-        }*/
 
         request.getRequestDispatcher(url).forward(request, response);
     }

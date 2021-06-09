@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
 
 
 /**
- *
+ *Clase Usuario
  * @author jp-9
  */
 @Entity

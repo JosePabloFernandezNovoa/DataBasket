@@ -23,12 +23,12 @@ import es.albarregas.dao.IGenericoDAO;
 import es.albarregas.dao.IUsuarioDAO;
 import java.util.ArrayList;
 import java.util.List;
-import es.albarregas.dao.IJugadorDAO;
 import es.albarregas.dao.IEstadisticaDAO;
 
 /**
- *
- * @author Jesus
+ * Controlador Front de entrada cada vez se hace click
+ * en un enlace se direge aqui y redirige a una URL concreta
+ * @author Jose Pablo Fernández Novoa
  */
 @WebServlet(name = "front", urlPatterns = {"/front"})
 public class Front extends HttpServlet {
@@ -48,27 +48,23 @@ public class Front extends HttpServlet {
         DAOFactory daof = DAOFactory.getDAOFactory();
         IGenericoDAO<Partido> Pdao = daof.getGenericoDAO();
         IGenericoDAO<Equipo> Edao = daof.getGenericoDAO();
-        IGenericoDAO<Estadisticas> Esdao = daof.getGenericoDAO();
+        IGenericoDAO<Usuario> Udao = daof.getGenericoDAO();
 
-        IJugadorDAO adaoJ = daof.getJugadorDAO();
         IEstadisticaDAO adaoE = daof.getEstadisticaDAO();
         IUsuarioDAO adaoU = daof.getUsuarioDAO();
         IEquipoDAO adaoEQ = daof.getEquipoDAO();
 
         List<Usuario> datosUsuario=null;
+        List<Usuario> listaUsuarios=null;
         List<Estadisticas> listaEstadisticas=null;
         List<Partido> listaPartidos = null;
         List<Equipo> listaEquipos = null;
-        List<Object[]> listaProfesoresAlumnos = null;
-        List<Object[]> listaA = null;
         List<Object[]> listEstadisticas = null;
-
-        Boolean vacio = false;
         
         Estadisticas estadisticas = null;
         Jugador jugador=null;
         Equipo equipo=null;
-
+        Usuario usuario=null;
         switch (request.getParameter("id")) {
 
             case "partidos":
@@ -116,7 +112,7 @@ public class Front extends HttpServlet {
                     jugador.setEquipo(equipo);
                     
                     estadisticas.setJugador(jugador);
-                    estadisticas.setMediaEstadisticasPartido(Byte.valueOf(resultado[3].toString()));
+                    estadisticas.setMediaEstadisticasPartido(Short.valueOf(resultado[3].toString()));
 
                     listaEstadisticas.add(estadisticas);
                 }
@@ -142,7 +138,7 @@ public class Front extends HttpServlet {
                     jugador.setEquipo(equipo);
                     
                     estadisticas.setJugador(jugador);
-                    estadisticas.setMediaEstadisticasPartido(Byte.valueOf(resultado[3].toString()));
+                    estadisticas.setMediaEstadisticasPartido(Short.valueOf(resultado[3].toString()));
 
                     listaEstadisticas.add(estadisticas);
                 }
@@ -168,7 +164,7 @@ public class Front extends HttpServlet {
                     jugador.setEquipo(equipo);
                     
                     estadisticas.setJugador(jugador);
-                    estadisticas.setMediaEstadisticasPartido(Byte.valueOf(resultado[3].toString()));
+                    estadisticas.setMediaEstadisticasPartido(Short.valueOf(resultado[3].toString()));
 
                     listaEstadisticas.add(estadisticas);
                 }
@@ -194,7 +190,7 @@ public class Front extends HttpServlet {
                     jugador.setEquipo(equipo);
                     
                     estadisticas.setJugador(jugador);
-                    estadisticas.setMediaEstadisticasPartido(Byte.valueOf(resultado[3].toString()));
+                    estadisticas.setMediaEstadisticasPartido(Short.valueOf(resultado[3].toString()));
 
                     listaEstadisticas.add(estadisticas);
                 }
@@ -205,15 +201,39 @@ public class Front extends HttpServlet {
                 int idUsuario = (int) request.getSession().getAttribute("idUser");
                 datosUsuario=adaoU.getDatosUsuario(idUsuario);
                 
-                url = "JSP/funcionesRol/perfil.jsp";
-                
                 request.setAttribute("listado", datosUsuario);
                 break;
+            
+            case "modificarPerfil":
+                int idUser = (int) request.getSession().getAttribute("idUser");
+                usuario=Udao.getById(idUser, Usuario.class);
+                
+                request.setAttribute("usuario", usuario);
+                break;  
+                
+            case "nuevoEquipo":
+                url = "JSP/funcionesRol/nuevoEquipo.jsp";
+                break;
+                
+            case "nuevoJugador":
+                listaEquipos = Edao.selectAll(Equipo.class);
+                request.setAttribute("listado", listaEquipos);
+                
+                url = "JSP/funcionesRol/nuevoJugador.jsp";
+                break;  
+             
+            case "listaUsuarios":
 
+                listaUsuarios = Udao.selectAll(Usuario.class);
+                request.setAttribute("listado", listaUsuarios);
+
+                break;
+    
+   
         }
-        if (request.getParameter("id").equals("partidos") || request.getParameter("id").equals("nuevoAlumno")
+        if (request.getParameter("id").equals("partidos") || request.getParameter("id").equals("modificarPerfil") || request.getParameter("id").equals("nuevoEquipo")
                 || request.getParameter("id").equals("nuevoNota") || request.getParameter("id").equals("modificarDatosProfesor")
-                || request.getParameter("id").equals("modificarDatosAlumno")
+                || request.getParameter("id").equals("modificarDatosAlumno") || (listaUsuarios != null && !listaUsuarios.isEmpty())
                 || (listaPartidos != null && !listaPartidos.isEmpty()) || (listaEquipos != null && !listaEquipos.isEmpty())
                 || (listaEstadisticas != null && !listaEstadisticas.isEmpty()) || (datosUsuario != null && !datosUsuario.isEmpty())) {
             switch (request.getParameter("id")) {
@@ -252,7 +272,18 @@ public class Front extends HttpServlet {
                 case "perfil":
                     url = "JSP/funcionesRol/perfil.jsp";
                     break;
-
+                
+                case "modificarPerfil":
+                    url = "JSP/funcionesRol/modificarPerfil.jsp";
+                    break;    
+                        
+                case "nuevoJugador":
+                url = "JSP/funcionesRol/nuevoJugador.jsp";
+                break; 
+               
+                case "listaUsuarios":
+                url = "JSP/usuarios.jsp";
+                break;
             }
         } else {
             url = "JSP/errores/error.jsp";

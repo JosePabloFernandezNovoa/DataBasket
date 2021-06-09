@@ -19,30 +19,26 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.util.List;
-import java.util.Set;
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import es.albarregas.dao.IEstadisticaDAO;
 import es.albarregas.dao.IJugadorDAO;
 
 /**
- *
- * @author Jesus
+ * Controlador que lista todos los datos de 
+ * los jugadores de un equipo especifico
+ * @author Jose Pablo Fernández Novoa
  */
 @WebServlet(name = "Listado", urlPatterns = {"/listar"})
 public class Listado extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     * @throws java.text.ParseException
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     * @throws ParseException
+     * @throws InvocationTargetException 
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException, InvocationTargetException {

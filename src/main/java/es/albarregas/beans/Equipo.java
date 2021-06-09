@@ -8,6 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Clase Equipo
+ * @author Jose Pablo Fernández Novoa
+ */
 @Entity
 @Table(name="equipos")
 public class Equipo implements Serializable {

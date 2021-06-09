@@ -20,8 +20,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- *
- * @author Jesus
+ * Controlador que lista los datos de jugadores y equipos
+ * @author Jose Pablo Fernández Novoa
  */
 @WebServlet(name = "listadoAjax", urlPatterns = {"/listadoAjax"})
 public class ListadoAjax extends HttpServlet {
@@ -65,7 +65,7 @@ public class ListadoAjax extends HttpServlet {
         if (request.getParameter("idJugador") != null) {
             String idJugador = request.getParameter("idJugador");
 
-            //recogemos todos los jugadores de eses equipo
+            //recogemos todos los jugadores de ese equipo
             listadoJugador = adaoJ.getInfoJugador(Short.valueOf(idJugador));
             
             arrayJSON = new JSONArray(listadoJugador);
@@ -75,7 +75,7 @@ public class ListadoAjax extends HttpServlet {
         if (request.getParameter("idEquipo") != null) {
             String idEquipo = request.getParameter("idEquipo");
 
-            //recogemos todos los jugadores de eses equipo
+            //recogemos todos los jugadores de ese equipo
             listadoJugador = adaoJ.getJugadoresEquipo(Short.valueOf(idEquipo));
             
             arrayJSON = new JSONArray(listadoJugador);
@@ -85,6 +85,7 @@ public class ListadoAjax extends HttpServlet {
         if (request.getParameter("jugador") != null) {
             String idJugador = request.getParameter("jugador");
             
+            //recogemos las estadisticas de un jugador
             listadoEstadisticas = adaoEQ.getEstadisticasJugador(Short.valueOf(idJugador));
             
             arrayJSON = new JSONArray(listadoEstadisticas);
@@ -94,45 +95,12 @@ public class ListadoAjax extends HttpServlet {
         if (request.getParameter("jugador1") != null && request.getParameter("jugador2") != null) {
             String idJugador1 = request.getParameter("jugador1");
             String idJugador2 = request.getParameter("jugador2");
+            //listado de estadisticas de 2 jugadores en concreto
             listadoEstadisticas = adaoEQ.getEstadisticas2Jugadores(Short.valueOf(idJugador1),Short.valueOf(idJugador2));
             
             arrayJSON = new JSONArray(listadoEstadisticas);
             
         }
-        
-        /*if (request.getParameter("nif") != null) {
-            String nif = request.getParameter("nif");
-            boolean nifRepetido = false;
-
-            //buscamos en la BD si el email esta ya registrado estaconsulta devuelve un listado
-            operacion = adaoU.comprobarNif(nif);
-
-            //si el listado contiene algo quiere decir que si esta repetido
-            if (operacion == true) {
-                nifRepetido = true;
-            } else {
-                nifRepetido = false;
-            }
-            //devolvemos el resultado de la comrpbacion
-            objeto.put("verificacion", nifRepetido);
-
-        }*/
-        
-        /*if (request.getParameter("nota")!= null) {
-
-            int idNota = Integer.parseInt(request.getParameter("idNota"));
-            Byte notas = Byte.valueOf(request.getParameter("nota"));
-            
-            
-            nota=Ndao.getById(idNota, Nota.class);
-            
-            nota.setNota(notas);
-           
-            Ndao.insertOrUpdate(nota);
-
-            objeto.put("verificacion", true);
-
-        }*/
         
         response.setContentType("application/json");
         response.getWriter().print(arrayJSON);

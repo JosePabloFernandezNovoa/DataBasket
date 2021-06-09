@@ -12,6 +12,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
 
+/**
+ * Clase Jugador
+ * @author Jose Pablo Fernández Novoa
+ */
 @Entity
 @Table(name="jugadores")
 public class Jugador implements Serializable {

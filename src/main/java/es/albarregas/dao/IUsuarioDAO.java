@@ -14,5 +14,6 @@ public interface IUsuarioDAO {
     public String getAvatar(int idUsuario);
     public Object[] getNombreApelidos(int idUsuario);
     public List<Usuario> getDatosUsuario(int idUsuario);
+    public boolean comprobarPassword(String password, int id);
     
 }

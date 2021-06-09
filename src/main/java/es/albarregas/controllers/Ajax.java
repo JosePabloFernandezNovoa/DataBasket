@@ -9,11 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import es.albarregas.dao.IUsuarioDAO;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import org.json.JSONObject;
 
 /**
- *
- * @author Jesus
+ * Controlador Ajax 
+ * Se encarga de realizar las operaciones de consulta 
+ * mediante funciones AJAX
+ * @author Jose Pablo Fernández Novoa
  */
 @WebServlet(name = "ajax", urlPatterns = {"/ajax"})
 public class Ajax extends HttpServlet {
@@ -53,12 +58,40 @@ public class Ajax extends HttpServlet {
             objeto.put("verificacion", emailRepetido);
 
         }
+        
+        if (request.getParameter("pass") != null) {
+            int idUsuario = (int) request.getSession().getAttribute("idUser");
+            String pass = request.getParameter("pass");
+
+            //buscamos en la BD si el email esta ya registrado estaconsulta devuelve un listado
+            operacion = adaoU.comprobarPassword(getMD5(pass), idUsuario);
+
+            //devolvemos el resultado de la comrpbacion
+            objeto.put("verificacion", operacion);
+
+        }
        
        response.setContentType("application/json");
        response.getWriter().print(objeto);
 
        
         
+    }
+    
+    public static String getMD5(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            BigInteger number = new BigInteger(1, messageDigest);
+            String hashtext = number.toString(16);
+
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            return hashtext;
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
