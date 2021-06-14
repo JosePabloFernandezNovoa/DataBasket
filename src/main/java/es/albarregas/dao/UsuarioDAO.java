@@ -131,30 +131,6 @@ public class UsuarioDAO extends GenericoDAO implements IUsuarioDAO {
         return resultado;
     }
 
-    @Override
-    public boolean comprobarNif(String nif) {
-        Boolean resultado=false;
-       String hql="SELECT u.dni FROM Usuario AS u where u.dni = :nif";
-        Query consulta=null;
-        List<Object> nifResult=null;
-        try {
-            startTransaction();
-            consulta=sesion.createQuery(hql);
-            
-            consulta.setParameter("nif", nif);
-            
-            nifResult=(List<Object>)consulta.list();
-            
-            if(!nifResult.isEmpty()){
-               resultado=true;
-            }
-        } catch (HibernateException he) {
-            handleException(he);
-        }finally{
-            endTransaction();
-        }
-        return resultado;
-    }
 
     @Override
     public String getAvatar(int idUsuario) {

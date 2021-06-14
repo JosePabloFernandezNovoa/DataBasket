@@ -76,7 +76,7 @@ public class ListadoAjax extends HttpServlet {
             String idEquipo = request.getParameter("idEquipo");
 
             //recogemos todos los jugadores de ese equipo
-            listadoJugador = adaoJ.getJugadoresEquipo(Short.valueOf(idEquipo));
+            listadoJugador = adaoJ.getJugadoresEquipoEstadisticas(Short.valueOf(idEquipo));
             
             arrayJSON = new JSONArray(listadoJugador);
             

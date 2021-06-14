@@ -9,7 +9,6 @@ public interface IUsuarioDAO {
     public boolean comprobarCredenciales(String usuario, String password);
     public Object getRol(String usuario);
     public boolean comprobarUsuarioRepetido(String email);
-    public boolean comprobarNif(String nif);
     public Integer getIdUsuario(String email);
     public String getAvatar(int idUsuario);
     public Object[] getNombreApelidos(int idUsuario);

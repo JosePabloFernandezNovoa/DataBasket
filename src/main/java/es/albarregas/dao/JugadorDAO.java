@@ -55,4 +55,24 @@ public class JugadorDAO extends GenericoDAO implements IJugadorDAO {
         }
         return listaJugadores;
     }
+
+    @Override
+    public List<Jugador> getJugadoresEquipoEstadisticas(Short id) {
+        String hql="SELECT DISTINCT j FROM Jugador AS j INNER JOIN Estadisticas as e ON j.idJugador=e.jugador.idJugador where j.equipo.idEquipo = :id";
+        Query consulta=null;
+        List<Jugador> listaJugadores=null;
+        try {
+            startTransaction();
+            consulta=sesion.createQuery(hql);
+            
+            consulta.setParameter("id", id);
+            
+            listaJugadores=(List<Jugador>)consulta.list();
+        } catch (HibernateException he) {
+            handleException(he);
+        }finally{
+            endTransaction();
+        }
+        return listaJugadores;
+    }
 }
