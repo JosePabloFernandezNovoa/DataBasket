@@ -37,36 +37,36 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="index.jsp"><img src="assets/img/navbar-logo.svg" alt="" /></a>
+                <a class="navbar-brand js-scroll-trigger" href="${pageContext.servletContext.contextPath}/index.jsp"><img src="${pageContext.servletContext.contextPath}/imagenes/logo.png" alt="" /></a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars ml-1"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ml-auto">
-                        <li class="nav-item menuEstats"><a class="nav-link js-scroll-trigger" href="JSP/estadisticas.jsp">Estadisticas</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="front?id=partidos">Partidos</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="front?id=equipos">Equipos</a></li>
+                        <li class="nav-item menuEstats"><a class="nav-link js-scroll-trigger" href="${pageContext.servletContext.contextPath}/JSP/estadisticas.jsp"><b>Estadisticas</b></a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.servletContext.contextPath}/front?id=partidos"><b>Partidos</b></a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.servletContext.contextPath}/front?id=equipos"><b>Equipos</b></a></li>
                         <!--<li class="nav-item"><a class="nav-link js-scroll-trigger" href="JSP/contactos.html">Contactos</a></li>-->
                     </ul>
                     &nbsp;&nbsp;
                     
                     <div class="btn-group admin menuEstats">
-                        <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="ti-user col-sm-1 col-form-label"></span>
+                        <button type="button" class="btn botonPerfil dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="ti-user col-sm-1 col-form-label">&nbsp;${sessionScope.nombre}</span>
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item user" href="front?id=perfil">Perfil</a>
-                            <a class="dropdown-item user" href="front?id=modificarPerfil">Modificar tus Datos</a>
-                            <a class="dropdown-item admin" href="front?id=listaUsuarios">Listar Usuarios</a>
-                            <a class="dropdown-item admin" href="front?id=nuevoJugador">Crear Jugador</a>
-                            <a class="dropdown-item admin" href="front?id=nuevoEquipo">Crear Equipo</a>
+                            <a class="dropdown-item user" href="${pageContext.servletContext.contextPath}/front?id=perfil">Perfil</a>
+                            <a class="dropdown-item user" href="${pageContext.servletContext.contextPath}/front?id=modificarPerfil">Modificar tus Datos</a>
+                            <a class="dropdown-item admin" href="${pageContext.servletContext.contextPath}/front?id=listaUsuarios">Listar Usuarios</a>
+                            <a class="dropdown-item admin" href="${pageContext.servletContext.contextPath}/front?id=nuevoJugador">Crear Jugador</a>
+                            <a class="dropdown-item admin" href="${pageContext.servletContext.contextPath}/front?id=nuevoEquipo">Crear Equipo</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item cerrar" href="${pageContext.servletContext.contextPath}/VueltaAEmpezar">Cerrar Sesión</a>
                         </div>
                     </div>
                     &nbsp;&nbsp;
-                    <button type="button" class="btn btn-warning inicioSesion"><a id="inicioSesion" href="JSP/inicioSesionYRegistro.jsp">Iniciar Sesión</a></button>
+                    <button type="button" class="btn btn-warning inicioSesion"><a id="inicioSesion" href="${pageContext.servletContext.contextPath}/JSP/inicioSesionYRegistro.jsp">Iniciar Sesión</a></button>
                 </div>
             </div>
         </nav>

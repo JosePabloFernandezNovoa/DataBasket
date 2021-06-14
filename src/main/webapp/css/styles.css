@@ -10092,7 +10092,7 @@ img::-moz-selection {
     transition: font-size 0.3s ease-in-out;
   }
   #mainNav .navbar-brand img {
-    height: 2rem;
+    height: 3.5rem;
     transition: height 0.3s ease-in-out;
   }
   #mainNav.navbar-shrink {
@@ -10119,7 +10119,7 @@ header.masthead {
   padding-bottom: 6rem;
   text-align: center;
   color: #fff;
-  background-image: url("../imagenes/portada1.png");
+  background-image: url("/DataBasket/imagenes/portada1.png");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
@@ -10425,7 +10425,7 @@ header.masthead .masthead-heading {
 
 section#contact {
   background-color: #212529;
-  background-image: url("../assets/img/map-image.png");
+  background-image: url("/DataBasket/assets/img/map-image.png");
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -10529,7 +10529,7 @@ section#contact form#contactForm :-ms-input-placeholder {
 
 div#contact {
   background-color: #212529;
-  background-image: url("../assets/img/map-image.png");
+  background-image: url("/DataBasket/assets/img/map-image.png");
   background-repeat: no-repeat;
   background-position: center;
 }

@@ -1,6 +1,6 @@
 $(function () {
     $('.user').css('display', 'inline');
     $('.admin').css('display', 'none');
-    $('.menuEstats').show();
+    $('.menuEstats').css('display', 'inline');
     $('.inicioSesion').hide();
 });
