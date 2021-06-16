@@ -36,6 +36,7 @@
     <mapping class="es.albarregas.beans.Equipo"/>
     <mapping class="es.albarregas.beans.Partido"/>
     <mapping class="es.albarregas.beans.Estadisticas"/>
+    <mapping class="es.albarregas.beans.Usuario"/>
   
   </session-factory>
 </hibernate-configuration>
