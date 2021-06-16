@@ -36,7 +36,7 @@ public class Equipo implements Serializable {
     @Column(name = "entrenador", length = 45, nullable = false)
     private String entrenador;
     
-    @Column(name = "mascota", length = 20, nullable = false)
+    @Column(name = "mascota", length = 20, nullable = true)
     private String mascota;
     
     @Column(name = "logotipo", length = 45, nullable = false)

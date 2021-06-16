@@ -7,14 +7,12 @@ package es.albarregas.controllers;
 
 
 import es.albarregas.beans.Equipo;
-import es.albarregas.beans.Usuario;
 import es.albarregas.dao.IGenericoDAO;
 import es.albarregas.daofactory.DAOFactory;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -54,7 +52,7 @@ public class NuevoEquipo extends HttpServlet {
             Boolean error=false;
             StringBuilder nombreFichero = new StringBuilder();
             //Ruta donde almacenaremos las imagenes
-            String dirImagen = request.getServletContext().getRealPath("/imagenes/avatares/");
+            String dirImagen = request.getServletContext().getRealPath("/imagenes/logos/");
             String filePath = null;
             //recogemos todos los valores del formulario
             String nombre = request.getParameter("nombre");
@@ -104,7 +102,10 @@ public class NuevoEquipo extends HttpServlet {
                 equipo.setConferencia(capitalizar(conferencia));
                 equipo.setDivision(division);
                 equipo.setEntrenador(capitalizar(entrenador));
-                equipo.setMascota(capitalizar(mascota));
+                if(mascota.length()!=0){
+                   equipo.setMascota(capitalizar(mascota));
+                }
+                
                 equipo.setLogotipo(nombreFichero.toString());
                 
                 //mandamos el bean cargado de dichos datos para ser introducidos en la BD
