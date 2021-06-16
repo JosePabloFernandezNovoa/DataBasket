@@ -13,7 +13,7 @@
     </head>
     <body>
         <div style="position: relative; width: 90%; left: 5%; text-align: center; border-bottom: none;">
-            <a href="/FNPabloPracticaFinalHibernate/VueltaAEmpezar" style="width: 100%;"><img src="/FNPabloPracticaFinalHibernate/imagenes/error404.png" title="imagen de error 404"/></a>
+            <a href="/DataBasket/VueltaAEmpezar" style="width: 100%;"><img src="/DataBasket/imagenes/error404.png" title="imagen de error 404"/></a>
         </div>
     </body>
 </html>

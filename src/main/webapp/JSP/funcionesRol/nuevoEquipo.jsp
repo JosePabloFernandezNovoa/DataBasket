@@ -127,7 +127,7 @@
                             <input class="form-control" type="text" name="entrenador" placeholder="K.Hart" maxlength="40" required=""><br>
 
                             <label  class="etiqueta" for="campos">Mascota</label>
-                            <input class="form-control" type="text" name="mascota" maxlength="20" placeholder="Ninguna" required=""><br>
+                            <input class="form-control" type="text" name="mascota" maxlength="20"><br>
 
                             <input type="submit" value="Enviar" id="enviar" name="boton" class="btn btn-success"/>
 

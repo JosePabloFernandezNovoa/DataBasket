@@ -105,7 +105,7 @@
                             <input class="form-control" type="text" name="procedencia" placeholder="Brooklyn" maxlength="20" required=""><br>
 
                             <label class="etiqueta" for="campos">Altura</label>
-                            <input class="form-control" type="number" name="altura" placeholder="195" required=""><br>
+                            <input class="form-control" type="number" name="altura" max="230" placeholder="195" required=""><br>
                             
                             <label for="campos" class="label etiqueta">Equipo</label>
                             <select class="form-select" name="equipo">
@@ -115,10 +115,10 @@
                             </select> <br>
                             
                             <label class="etiqueta" for="campos">Peso</label>
-                            <input class="form-control" type="number" name="peso" placeholder="95" required=""><br>
+                            <input class="form-control" type="number" name="peso" max="200" placeholder="95" required=""><br>
                             
                             <label class="etiqueta" for="campos">Edad</label>
-                            <input class="form-control" type="number" name="edad" placeholder="21" required=""><br>
+                            <input class="form-control" type="number" name="edad" max="70" placeholder="21" required=""><br>
                             
                              <label for="campos" class="label etiqueta">Posición</label>
                             <select class="form-select division" name="posicion" aria-label="Default select example">

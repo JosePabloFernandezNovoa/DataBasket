@@ -25,7 +25,7 @@
         <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        
+
         <link href="${pageContext.servletContext.contextPath}/css/tablas.css" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
         <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/themify-icons.css">
@@ -50,7 +50,7 @@
                         <!--<li class="nav-item"><a class="nav-link js-scroll-trigger" href="JSP/contactos.html">Contactos</a></li>-->
                     </ul>
                     &nbsp;&nbsp;
-                    
+
                     <div class="btn-group admin menuEstats">
                         <button type="button" class="btn botonPerfil dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="ti-user col-sm-1 col-form-label">&nbsp;${sessionScope.nombre}</span>
@@ -158,7 +158,7 @@
                 </div>
             </div>
         </footer>
-        
+
         <div class="modal fade informacionEquipo" role="dialog">
             <div class="modal-dialog">
                 <!-- Modal content-->
@@ -184,6 +184,9 @@
                                                 ${equipo.mascota}
                                             </c:if>  
                                             <c:if test="${equipo.mascota=='NULL'}">
+                                            Sin mascota
+                                        </c:if>
+                                        <c:if test="${equipo.mascota==null}">
                                             Sin mascota
                                         </c:if></h4></li>
 

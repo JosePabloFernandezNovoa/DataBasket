@@ -13,7 +13,7 @@
     </head>
     <body>
         <div style="position: relative; width: 90%; left: 5%; text-align: center; border-bottom: none;">
-            <a href="/FNPabloPracticaFinalHibernate/VueltaAEmpezar" style="width: 100%;"><img src="/FNPabloPracticaFinalHibernate/imagenes/error500.png" title="imagen de error 500"/></a>
+            <a href="/DataBasket/VueltaAEmpezar" style="width: 100%;"><img src="/DataBasket/imagenes/error500.png" title="imagen de error 500"/></a>
         </div>
     </body>
 </html>
